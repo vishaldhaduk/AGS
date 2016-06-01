@@ -67,3 +67,7 @@ C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\Micro
 C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\obj\Debug\AdminGujaratiSamaj.csprojResolveAssemblyReference.cache
 C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\obj\Debug\AdminGujaratiSamaj.dll
 C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\obj\Debug\AdminGujaratiSamaj.pdb
+C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\Autofac.dll
+C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\Autofac.Integration.Mvc.dll
+C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\Autofac.xml
+C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\Autofac.Integration.Mvc.xml

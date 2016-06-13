@@ -178,10 +178,20 @@
     <Compile Include="Bootstraper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\NonMemberEntryController.cs" />
     <Compile Include="DAL\AGSDBContext.cs" />
     <Compile Include="DAL\AGSDBInitializer.cs" />
+    <Compile Include="DAL\Repository\MemberRepository.cs" />
+    <Compile Include="DAL\Repository\NonMemberEntryRepository.cs" />
+    <Compile Include="DAL\Repository\Repository.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606131903441_mFirstMigration.cs" />
+    <Compile Include="Migrations\201606131903441_mFirstMigration.Designer.cs">
+      <DependentUpon>201606131903441_mFirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -242,6 +252,16 @@
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Member\Create.cshtml" />
+    <Content Include="Views\Member\Delete.cshtml" />
+    <Content Include="Views\Member\Details.cshtml" />
+    <Content Include="Views\Member\Edit.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\NonMemberEntry\Create.cshtml" />
+    <Content Include="Views\NonMemberEntry\Delete.cshtml" />
+    <Content Include="Views\NonMemberEntry\Details.cshtml" />
+    <Content Include="Views\NonMemberEntry\Edit.cshtml" />
+    <Content Include="Views\NonMemberEntry\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -254,6 +274,11 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201606131903441_mFirstMigration.resx">
+      <DependentUpon>201606131903441_mFirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -177,11 +177,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Bootstraper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EntryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\NonMemberEntryController.cs" />
     <Compile Include="DAL\AGSDBContext.cs" />
     <Compile Include="DAL\AGSDBInitializer.cs" />
+    <Compile Include="DAL\Repository\EntryRepository.cs" />
     <Compile Include="DAL\Repository\MemberRepository.cs" />
     <Compile Include="DAL\Repository\NonMemberEntryRepository.cs" />
     <Compile Include="DAL\Repository\Repository.cs" />
@@ -262,6 +264,11 @@
     <Content Include="Views\NonMemberEntry\Details.cshtml" />
     <Content Include="Views\NonMemberEntry\Edit.cshtml" />
     <Content Include="Views\NonMemberEntry\Index.cshtml" />
+    <Content Include="Views\Entry\Create.cshtml" />
+    <Content Include="Views\Entry\Delete.cshtml" />
+    <Content Include="Views\Entry\Details.cshtml" />
+    <Content Include="Views\Entry\Edit.cshtml" />
+    <Content Include="Views\Entry\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

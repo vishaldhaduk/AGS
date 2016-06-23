@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AdminGujaratiSamaj.DAL;
 using AdminGujaratiSamaj.Models;
+using PagedList;
 
 namespace AdminGujaratiSamaj.Controllers
 {
@@ -16,9 +17,12 @@ namespace AdminGujaratiSamaj.Controllers
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: Entry
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(uow.EntryRepository.GetAll());
+            IEnumerable<EntryMaster> EntryM = uow.EntryRepository.GetAll();
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
+            return View(EntryM.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Entry/Details/5

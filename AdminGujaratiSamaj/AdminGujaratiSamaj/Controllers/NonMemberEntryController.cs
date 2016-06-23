@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AdminGujaratiSamaj.DAL;
 using AdminGujaratiSamaj.Models;
-
+using PagedList;
 namespace AdminGujaratiSamaj.Controllers
 {
     public class NonMemberEntryController : Controller
@@ -16,9 +16,12 @@ namespace AdminGujaratiSamaj.Controllers
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: NonMemberEntry
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(uow.NonMemberEntryRepository.GetAll());
+            IEnumerable<NonMemberEntryMaster> NMEntry = uow.NonMemberEntryRepository.GetAll();
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
+            return View(NMEntry.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: NonMemberEntry/Details/5

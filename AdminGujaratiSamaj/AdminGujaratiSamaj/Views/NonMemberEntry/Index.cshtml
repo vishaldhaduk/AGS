@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<AdminGujaratiSamaj.Models.NonMemberEntryMaster>
-
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var pagedlist = (PagedList.IPagedList)Model;
 }
+
 
 <h2>Index</h2>
 
@@ -44,3 +47,9 @@
 }
 
 </table>
+
+Page @(pagedlist.PageCount < pagedlist.PageNumber ? 0 : pagedlist.PageNumber) of @pagedlist.PageCount
+
+@Html.PagedListPager(pagedlist, page => Url.Action("Index", new { page = page }))
+
+

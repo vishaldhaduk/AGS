@@ -1,6 +1,9 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@model IEnumerable<AdminGujaratiSamaj.Models.MemberMaster>
+
+
 
 <div class="jumbotron">
     <h2>Welcome GSM Admin</h2>
@@ -8,14 +11,12 @@
     <div class="input-group">
         <form action="/Home/Index" class="navbar-search" id="searchform" method="post">
             <input type="text" id="pid" name="pid" value="@ViewBag.id" style="visibility : hidden" readonly>
-            <input type="text" class="form-control" id="pName" name="pName" placeholder="Search member by last name">
+            <input type="text" class="form-control" id="pName" name="pName" value="@ViewBag.pName" placeholder="Search member by last name">
             <input class="btn btn-success pull-right" id="btnClick" value="Search" type="submit" />
         </form>
     </div>
 </div>
-
-<div class="row">
-</div>
+<div id="Content" class="row">@{Html.RenderAction("Index", "Member");}</div>
 
 <script type="text/javascript">
     $(document).ready(function () {

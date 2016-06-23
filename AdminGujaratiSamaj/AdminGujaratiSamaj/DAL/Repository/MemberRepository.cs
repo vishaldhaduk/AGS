@@ -20,7 +20,7 @@ namespace AdminGujaratiSamaj.DAL.Repository
         /// <returns></returns>
         internal IEnumerable<MemberMaster> GetNames(string term)
         {
-            var members = context.MemberMasters.Where(p => p.FName.StartsWith(term));
+            var members = context.MemberMasters.Where(p => p.LName.StartsWith(term));
             return members;
         }
 

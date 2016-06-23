@@ -21,6 +21,21 @@ namespace AdminGujaratiSamaj.Controllers
             return View(uow.MemberRepository.GetAll());
         }
 
+
+        [HttpGet]
+        //Get : Products/Alternative
+        public ActionResult SearchMembers(string lName)
+        {
+            lName = WebUtility.UrlDecode(lName);
+            MemberMaster mem = uow.MemberRepository.Get(
+                filter: d => d.LName == lName,
+                includeProperties: "MemberDetails"
+               ).First();
+
+            return View(mem);
+        }
+
+
         // GET: Member/Details/5
         public ActionResult Details(int? id)
         {

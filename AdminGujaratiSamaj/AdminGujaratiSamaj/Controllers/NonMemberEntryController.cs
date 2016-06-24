@@ -16,10 +16,26 @@ namespace AdminGujaratiSamaj.Controllers
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: NonMemberEntry
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string sortOrder)
         {
+            ViewBag.PaidSortParm = String.IsNullOrEmpty(sortOrder) ? "paid_desc" : "";
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+
             IEnumerable<NonMemberEntryMaster> NMEntry = uow.NonMemberEntryRepository.GetAll();
-            int pageSize = 2;
+
+            switch (sortOrder)
+            {
+                case "paid_desc":
+                    NMEntry = NMEntry.OrderByDescending(s => s.Paid);
+                    break;
+                case "date_desc":
+                    NMEntry = NMEntry.OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    NMEntry = NMEntry.OrderBy(s => s.Paid);
+                    break;
+            }
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(NMEntry.ToPagedList(pageNumber, pageSize));
         }

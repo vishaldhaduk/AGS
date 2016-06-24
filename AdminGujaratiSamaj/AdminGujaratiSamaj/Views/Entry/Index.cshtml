@@ -19,16 +19,16 @@
             @Html.DisplayNameFor(model => model.MemberMaster.BarcodeId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Paid)
+            @Html.ActionLink("Fees Paid?", "Index", new { sortOrder = ViewBag.PaidSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SeatNo)
+            @Html.ActionLink("Seat No", "Index", new { sortOrder = ViewBag.SeatNoSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DiwaliPass)
+            @Html.ActionLink("Diwali Pass?", "Index", new { sortOrder = ViewBag.DiwaliPassSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Comment)

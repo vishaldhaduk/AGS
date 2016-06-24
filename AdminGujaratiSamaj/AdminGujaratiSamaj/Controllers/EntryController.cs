@@ -17,10 +17,35 @@ namespace AdminGujaratiSamaj.Controllers
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: Entry
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string sortOrder)
         {
+            ViewBag.PaidSortParm = String.IsNullOrEmpty(sortOrder) ? "paid_desc" : "";
+            ViewBag.SeatNoSortParm = String.IsNullOrEmpty(sortOrder) ? "seat_desc" : "";
+            ViewBag.DiwaliPassSortParm = String.IsNullOrEmpty(sortOrder) ? "diwalipass_desc" : "";
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+
             IEnumerable<EntryMaster> EntryM = uow.EntryRepository.GetAll();
-            int pageSize = 2;
+
+            switch (sortOrder)
+            {
+                case "paid_desc":
+                    EntryM = EntryM.OrderByDescending(s => s.Paid);
+                    break;
+                case "seat_desc":
+                    EntryM = EntryM.OrderByDescending(s => s.SeatNo);
+                    break;
+                case "diwalipass_desc":
+                    EntryM = EntryM.OrderByDescending(s => s.DiwaliPass);
+                    break;
+                case "date_desc":
+                    EntryM = EntryM.OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    EntryM = EntryM.OrderBy(s => s.SeatNo);
+                    break;
+            }
+
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(EntryM.ToPagedList(pageNumber, pageSize));
         }

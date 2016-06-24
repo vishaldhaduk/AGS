@@ -20,7 +20,7 @@ namespace AdminGujaratiSamaj.Controllers
         public ActionResult Index(int? page, string sortOrder)
         {
             ViewBag.LNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lname_desc" : "";
-            ViewBag.FNameSortParm = String.IsNullOrEmpty(sortOrder) ? "fname_desc" : "";
+            ViewBag.FNameSortParm = String.IsNullOrEmpty(sortOrder) ? "fname_asc" : "";
             ViewBag.FIDSortParm = String.IsNullOrEmpty(sortOrder) ? "family_id" : "";
 
             IEnumerable<MemberMaster> Members = uow.MemberRepository.GetAll();
@@ -30,8 +30,8 @@ namespace AdminGujaratiSamaj.Controllers
                 case "lname_desc":
                     Members = Members.OrderByDescending(s => s.LName);
                     break;
-                case "fname_desc":
-                    Members = Members.OrderByDescending(s => s.FName);
+                case "fname_asc":
+                    Members = Members.OrderBy(s => s.FName);
                     break;
                 case "family_id":
                     Members = Members.OrderByDescending(s => s.FamilyId);
@@ -39,10 +39,9 @@ namespace AdminGujaratiSamaj.Controllers
                 default:
                     Members = Members.OrderBy(s => s.LName);
                     break;
-
             }
 
-            int pageSize = 2;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(Members.ToPagedList(pageNumber, pageSize));
         }

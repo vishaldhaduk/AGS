@@ -12,21 +12,19 @@ namespace AdminGujaratiSamaj.Controllers
         private UnitOfWork uow = new UnitOfWork();
         public ActionResult Index()
         {
-            //ViewBag.pName = Request.Form["pName"];
+            ViewBag.lName = Request.Form["lName"];
             return View();
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
@@ -35,7 +33,7 @@ namespace AdminGujaratiSamaj.Controllers
             //var result = (from r in db.Customers
             //              where r.Country.ToLower().Contains(term.ToLower())
             //              select new { r.Country }).Distinct();
-            var result = uow.MemberRepository.GetNames(term).Select(m => new { label = m.LName, id = m.ID});
+            var result = uow.MemberRepository.GetNames(p => p.FName.StartsWith(term)).Select(m => new { label = m.FName, id = m.ID});
             //  var test = Json(result, JsonRequestBehavior.AllowGet);
             return Json(result, JsonRequestBehavior.AllowGet);
         }

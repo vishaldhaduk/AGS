@@ -54,6 +54,11 @@ namespace AdminGujaratiSamaj.DAL.Repository
             //throw new NotImplementedException();
         }
 
+        public virtual IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>> where)
+        {
+            return dbSet.Where(where).ToList();
+        }
+
         public TEntity GetByID(object id)
         {
             return dbSet.Find(id);

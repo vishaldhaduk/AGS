@@ -49,15 +49,18 @@ namespace AdminGujaratiSamaj.Controllers
 
         [HttpGet]
         //Get : Products/Alternative
-        public ActionResult SearchMembers(string lName)
+        public ActionResult SearchMembers(string lName, int? page)
         {
-            lName = WebUtility.UrlDecode(lName);
-            MemberMaster mem = uow.MemberRepository.Get(
-                filter: d => d.LName == lName,
-                includeProperties: "MemberDetails"
-               ).First();
-
-            return View(mem);
+            //lName = "Patel";
+            if (lName != null)
+            {
+                lName = WebUtility.UrlDecode(lName);
+                int pageSize = 10;
+                int pageNumber = (page ?? 1);
+                return View("Index", uow.MemberRepository.GetMany(d => d.LName.ToLower().Contains(lName.ToLower())).ToPagedList(pageNumber, pageSize));
+            }
+            else
+                return View();
         }
 
 

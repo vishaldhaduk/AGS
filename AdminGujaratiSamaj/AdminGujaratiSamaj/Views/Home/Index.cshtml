@@ -11,7 +11,7 @@
     <div class="input-group">
         <form action="/Home/Index" class="navbar-search" id="searchform" method="post">
             <input type="text" id="pid" name="pid" value="@ViewBag.id" style="visibility : hidden" readonly>
-            <input type="text" class="form-control" id="pName" name="pName" value="@ViewBag.pName" placeholder="Search member by last name">
+            <input type="text" class="form-control" id="lName" name="lName" value="@ViewBag.lName" placeholder="Search member by last name">
             <input class="btn btn-success pull-right" id="btnClick" value="Search" type="submit" />
         </form>
     </div>
@@ -24,29 +24,40 @@
             $(".nav-collapse .nav .active").removeClass("active")
             $(this).parent().addClass("active")
         });
-        //$("#pName").val(ViewBag.pName);
+        //$("#lName").val(ViewBag.pName);
     });
 
-    $('#pName').keypress(function (e) {
+    $("#lName").keypress(function (e) {
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13 && $(this).val() != "") {
             $('#searchform').submit();
         }
 
     });
-    $("#pName").autocomplete({
+
+    $('#btnClick').click(function (data) {
+        $.post("@Url.Action("SearchMembers?lname='patel'", "Member")", function (data) {
+            if (data) {
+                $("#lName").append(data);
+            }
+        });
+    });
+
+    @*$('#btnClick').click(function () {
+        $('#Content').Load('@Url.Action("SearchMembers", "Member")')
+    });*@
+
+    $("#lName").autocomplete({
         source: "/Home/SearchMemberAutoComplete",
         select: function (event, ui) {
             //event.defaultPrevented();
-            $("#pName").val(ui.item.label);
+            $("#lName").val(ui.item.label);
             $("#pid").val(ui.item.id);
             $('#searchform').submit();
 
         },
         focus: function (event, ui) {
-            //event.defaultPrevented();
-            $("#pName").val(ui.item.label);
+            $("#lName").val(ui.item.label);
         }
-
     })
 </script>

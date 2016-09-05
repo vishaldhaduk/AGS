@@ -1,0 +1,71 @@
+﻿@model IEnumerable<AdminGujaratiSamaj.Models.EntryMaster>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var pagedlist = (PagedList.IPagedList)Model;
+}
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberMaster.BarcodeId)
+        </th>
+        <th>
+            @Html.ActionLink("Fees Paid?", "Index", new { sortOrder = ViewBag.PaidSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Seat No", "Index", new { sortOrder = ViewBag.SeatNoSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Diwali Pass?", "Index", new { sortOrder = ViewBag.DiwaliPassSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberMaster.BarcodeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Paid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SeatNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiwaliPass)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+
+Page @(pagedlist.PageCount < pagedlist.PageNumber ? 0 : pagedlist.PageNumber) of @pagedlist.PageCount
+
+@Html.PagedListPager(pagedlist, page => Url.Action("Index", new { page = page }))

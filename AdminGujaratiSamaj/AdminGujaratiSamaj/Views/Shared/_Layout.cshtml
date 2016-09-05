@@ -6,7 +6,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -22,7 +24,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Add", "About", "Home")</li>
+                    <li>@Html.ActionLink("Members", "Index", "Member")</li>
+                    <li>@Html.ActionLink("Member's Entry", "Index", "Entry")</li>
+                    <li>@Html.ActionLink("Non-Member's Entry", "Index", "NonMemberEntry")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -36,8 +40,8 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

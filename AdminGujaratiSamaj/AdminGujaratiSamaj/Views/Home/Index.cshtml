@@ -1,10 +1,63 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@model IEnumerable<AdminGujaratiSamaj.Models.MemberMaster>
+
+
 
 <div class="jumbotron">
     <h2>Welcome GSM Admin</h2>
+    <p class="lead" style="font-size:16px">"જય જય ગરવી ગુજરાત"</p>
+    <div class="input-group">
+        <form action="/Home/Index" class="navbar-search" id="searchform" method="post">
+            <input type="text" id="pid" name="pid" value="@ViewBag.id" style="visibility : hidden" readonly>
+            <input type="text" class="form-control" id="lName" name="lName" value="@ViewBag.lName" placeholder="Search member by last name">
+            <input class="btn btn-success pull-right" id="btnClick" value="Search" type="submit" />
+        </form>
+    </div>
 </div>
+<div id="Content" class="row">@{Html.RenderAction("Index", "Member");}</div>
 
-<div class="row">
-</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".nav-collapse .nav li a").click(function (e) {
+            $(".nav-collapse .nav .active").removeClass("active")
+            $(this).parent().addClass("active")
+        });
+        //$("#lName").val(ViewBag.pName);
+    });
+
+    $("#lName").keypress(function (e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13 && $(this).val() != "") {
+            $('#searchform').submit();
+        }
+
+    });
+
+    $('#btnClick').click(function (data) {
+        $.post("@Url.Action("SearchMembers?lname='patel'", "Member")", function (data) {
+            if (data) {
+                $("#lName").append(data);
+            }
+        });
+    });
+
+    @*$('#btnClick').click(function () {
+        $('#Content').Load('@Url.Action("SearchMembers", "Member")')
+    });*@
+
+    $("#lName").autocomplete({
+        source: "/Home/SearchMemberAutoComplete",
+        select: function (event, ui) {
+            //event.defaultPrevented();
+            $("#lName").val(ui.item.label);
+            $("#pid").val(ui.item.id);
+            $('#searchform').submit();
+
+        },
+        focus: function (event, ui) {
+            $("#lName").val(ui.item.label);
+        }
+    })
+</script>

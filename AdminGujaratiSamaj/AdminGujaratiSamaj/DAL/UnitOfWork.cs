@@ -11,6 +11,7 @@ namespace AdminGujaratiSamaj.DAL
         private AGSDBContext context = new AGSDBContext();
         private MemberRepository memberRepository;
         private NonMemberEntryRepository nonMemberEntryRepository;
+        private EntryRepository entryRepository;
 
         #region Repo
 
@@ -35,6 +36,18 @@ namespace AdminGujaratiSamaj.DAL
                     this.nonMemberEntryRepository = new NonMemberEntryRepository(context);
                 }
                 return nonMemberEntryRepository;
+            }
+        }
+
+        public EntryRepository EntryRepository
+        {
+            get
+            {
+                if (this.entryRepository == null)
+                {
+                    this.entryRepository = new EntryRepository(context);
+                }
+                return entryRepository;
             }
         }
         #endregion

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 namespace AdminGujaratiSamaj.DAL.Repository
@@ -18,9 +19,9 @@ namespace AdminGujaratiSamaj.DAL.Repository
         /// </summary>
         /// <param name="term"></param>
         /// <returns></returns>
-        internal IEnumerable<MemberMaster> GetNames(string term)
+        internal IEnumerable<MemberMaster> GetNames(Expression<Func<MemberMaster, bool>> where)
         {
-            var members = context.MemberMasters.Where(p => p.FName.StartsWith(term));
+            var members = context.MemberMasters.Where(where);
             return members;
         }
 

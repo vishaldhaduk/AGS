@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AdminGujaratiSamaj.DAL;
 using AdminGujaratiSamaj.Models;
+using PagedList;
 
 namespace AdminGujaratiSamaj.Controllers
 {
@@ -16,10 +17,52 @@ namespace AdminGujaratiSamaj.Controllers
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: Member
-        public ActionResult Index()
+        public ActionResult Index(int? page, string sortOrder)
         {
-            return View(uow.MemberRepository.GetAll());
+            ViewBag.LNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lname_desc" : "";
+            ViewBag.FNameSortParm = String.IsNullOrEmpty(sortOrder) ? "fname_asc" : "";
+            ViewBag.FIDSortParm = String.IsNullOrEmpty(sortOrder) ? "family_id" : "";
+
+            IEnumerable<MemberMaster> Members = uow.MemberRepository.GetAll();
+
+            switch (sortOrder)
+            {
+                case "lname_desc":
+                    Members = Members.OrderByDescending(s => s.LName);
+                    break;
+                case "fname_asc":
+                    Members = Members.OrderBy(s => s.FName);
+                    break;
+                case "family_id":
+                    Members = Members.OrderByDescending(s => s.FamilyId);
+                    break;
+                default:
+                    Members = Members.OrderBy(s => s.LName);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(Members.ToPagedList(pageNumber, pageSize));
         }
+
+
+        [HttpGet]
+        //Get : Products/Alternative
+        public ActionResult SearchMembers(string lName, int? page)
+        {
+            //lName = "Patel";
+            if (lName != null)
+            {
+                lName = WebUtility.UrlDecode(lName);
+                int pageSize = 10;
+                int pageNumber = (page ?? 1);
+                return View("Index", uow.MemberRepository.GetMany(d => d.LName.ToLower().Contains(lName.ToLower())).ToPagedList(pageNumber, pageSize));
+            }
+            else
+                return View();
+        }
+
 
         // GET: Member/Details/5
         public ActionResult Details(int? id)

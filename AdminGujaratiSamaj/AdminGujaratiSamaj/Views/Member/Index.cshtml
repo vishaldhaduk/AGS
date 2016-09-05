@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<AdminGujaratiSamaj.Models.MemberMaster>
-
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Members";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var pagedlist = (PagedList.IPagedList)Model;
 }
 
 <h2>Index</h2>
@@ -16,16 +18,16 @@
             @Html.DisplayNameFor(model => model.BarcodeId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LName)
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LNameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FName)
+            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FNameSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IsPrimary)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FamilyId)
+            @Html.ActionLink("Family Id", "Index", new { sortOrder = ViewBag.FIDSortParm })
         </th>
         <th></th>
     </tr>
@@ -56,3 +58,8 @@
 }
 
 </table>
+
+<br />
+Page @(pagedlist.PageCount < pagedlist.PageNumber ? 0 : pagedlist.PageNumber) of @pagedlist.PageCount
+
+@Html.PagedListPager(pagedlist, page => Url.Action("Index", new { page = page }))

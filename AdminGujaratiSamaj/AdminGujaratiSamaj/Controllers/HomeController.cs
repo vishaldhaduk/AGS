@@ -12,7 +12,7 @@ namespace AdminGujaratiSamaj.Controllers
         private UnitOfWork uow = new UnitOfWork();
         public ActionResult Index()
         {
-            ViewBag.lName = Request.Form["lName"];
+            ViewBag.fName = Request.Form["fName"];
             return View();
         }
 
@@ -29,7 +29,7 @@ namespace AdminGujaratiSamaj.Controllers
         }
 
         public JsonResult SearchMemberAutoComplete(string term)
-        {
+       {
             //var result = (from r in db.Customers
             //              where r.Country.ToLower().Contains(term.ToLower())
             //              select new { r.Country }).Distinct();

@@ -12,6 +12,29 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "Member", FormMethod.Get))
+{
+    <div style="text-orientation:sideways; margin-bottom:25px; margin-top:20px" class="col-lg-10">
+        @*Find by name:*@
+
+        @* <label>Search Criteria: </label>*@
+        <div class="dropdown" style="float:left; height:34px">
+            <select id="searchBy" class="dropdown" style="height:34px" name="searchBy">
+                <option value="0">First Name</option>
+                <option value="1">Last Name</option>
+                <option value="2">Barcode Id</option>
+                <option value="3">Family Id</option>
+            </select>
+        </div>
+        <div style="float:left; ">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
+                     new { @id = "txtSearch", @class = "form-control SearchText" })
+        </div>
+        <input type="submit" style="float:left" id="btnSearch" value="Search Members" class="btn btn-success" />
+        <input type="text" id="memberId" name="memberId" value="@ViewBag.id" style="visibility : hidden; float:left" readonly>
+    </div>
+}
 <table class="table">
     <tr>
         <th>
@@ -32,30 +55,31 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BarcodeId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsPrimary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FamilyId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarcodeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPrimary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FamilyId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
 
@@ -63,3 +87,62 @@
 Page @(pagedlist.PageCount < pagedlist.PageNumber ? 0 : pagedlist.PageNumber) of @pagedlist.PageCount
 
 @Html.PagedListPager(pagedlist, page => Url.Action("Index", new { page = page }))
+
+<style>
+    .SearchText {
+        width: 900px;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".nav-collapse .nav li a").click(function (e) {
+            $(".nav-collapse .nav .active").removeClass("active")
+            $(this).parent().addClass("active")
+        });
+
+        //On change event for Search by Dropdown
+        $("#searchBy").change(function () {
+            if ($("#searchBy").val() != "Select") {
+                setCookie("search_criteria", $("#searchBy").val());
+                //console.log(getCookie("search_criteria"));
+            }
+        });
+
+        function setCookie(key, value) {
+            var expires = new Date();
+            expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+            document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+        }
+
+        function getCookie(key) {
+            var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+            return keyValue ? keyValue[2] : null;
+        }
+    });
+
+    $("#txtSearch").keypress(function (e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13 && $(this).val() != "") {
+            $("#searchBy :selected").text();
+            $('#btnSearch').submit();
+            console.log("Keypress function executed...");
+        }
+    });
+
+    $("#txtSearch").autocomplete({
+        source: "/Member/SearchMemberAutoComplete?searchBy=" + $('select[name=searchBy]').val(),
+        select: function (event, ui) {
+            //event.defaultPrevented();
+            $("#txtSearch").val(ui.item.label);
+            $("#memberId").val(ui.item.id);
+            $("#searchBy :selected").text();
+            $('#btnSearch').submit();
+        },
+
+        focus: function (event, ui) {
+            $("#txtSearch").val(ui.item.label);
+        }
+    });
+
+</script>

@@ -15,9 +15,9 @@ namespace AdminGujaratiSamaj.Models
         public string DOB { get; set; }
         public string Sex { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Phone1 { get; set; }
-        public string Phone2{ get; set; }
+        public string THome { get; set; }
+        public string TBusiness { get; set; }
+        public string TFax{ get; set; }
         public bool NewsLetter { get; set; }
         public virtual MemberMaster MemberMaster { get; set; }
         public string MemberType { get; set; }

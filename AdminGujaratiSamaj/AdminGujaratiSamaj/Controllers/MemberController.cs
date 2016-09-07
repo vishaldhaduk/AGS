@@ -75,7 +75,7 @@ namespace AdminGujaratiSamaj.Controllers
                         break;
                     case "3":
                         searchField = "FamilyId";
-                        Members = uow.MemberRepository.GetMany(s => s.FamilyId.Contains(searchString));
+                        Members = uow.MemberRepository.GetMany(s => s.BarcodeId.Contains(searchString));
                         break;
                     default:
                         searchField = "FName";
@@ -109,7 +109,8 @@ namespace AdminGujaratiSamaj.Controllers
                     var result1 = uow.MemberRepository.GetNames(p => p.BarcodeId.StartsWith(term)).Select(m => new { label = m.BarcodeId, id = m.ID });
                     return Json(result1, JsonRequestBehavior.AllowGet);
                 case "3":
-                    var result2 = uow.MemberRepository.GetNames(p => p.FamilyId.StartsWith(term)).Select(m => new { label = m.FamilyId, id = m.ID });
+                    var result2 = uow.MemberRepository.GetNames(p => p.BarcodeId.StartsWith(term)).Select(m => new { label = m.BarcodeId, id = m.ID });
+                    //var result2 = uow.MemberRepository.GetNames(p => p.FamilyId.StartsWith(term)).Select(m => new { label = m.FamilyId, id = m.ID });
                     return Json(result2, JsonRequestBehavior.AllowGet);
                 default:
                     var result3 = uow.MemberRepository.GetNames(p => p.FName.StartsWith(term)).Select(m => new { label = m.FName, id = m.ID });

@@ -13,11 +13,11 @@ namespace AdminGujaratiSamaj.DAL
         {
             var member = new List<MemberMaster>
             {
-                new MemberMaster{LName="Patel",FName="Alex",BarcodeId="D7-0128", FamilyId="0128",IsPrimary=true},
-                new MemberMaster{LName="Patel",FName="Paul",BarcodeId="D7-0129", FamilyId="0128",IsPrimary=false},
-                new MemberMaster{LName="Patel",FName="Boris",BarcodeId="D7-0130", FamilyId="0128",IsPrimary=false},
-                new MemberMaster{LName="Shah",FName="Danton",BarcodeId="D7-0131", FamilyId="0131",IsPrimary=true},
-                new MemberMaster{LName="Shah",FName="Elena",BarcodeId="D7-0132", FamilyId="0131",IsPrimary=false}
+                new MemberMaster{LName="Patel",FName="Alex",BarcodeId="D7-0128", FamilyId=0128,IsPrimary=true},
+                new MemberMaster{LName="Patel",FName="Paul",BarcodeId="D7-0129", FamilyId=0128,IsPrimary=false},
+                new MemberMaster{LName="Patel",FName="Boris",BarcodeId="D7-0130", FamilyId=0128,IsPrimary=false},
+                new MemberMaster{LName="Shah",FName="Danton",BarcodeId="D7-0131", FamilyId=0131,IsPrimary=true},
+                new MemberMaster{LName="Shah",FName="Elena",BarcodeId="D7-0132", FamilyId=0131,IsPrimary=false}
                 //new MemberMaster{ID=1, LName="Carson",FName="Alexander",BarcodeId="D7-0128", FamilyId="0128",IsPrimary=true},
             };
 
@@ -26,11 +26,11 @@ namespace AdminGujaratiSamaj.DAL
 
             var memberdetail = new List<MemberDetailMaster>
             {
-                new MemberDetailMaster{MemberMasterID=1, Address="At Home 1", DOB="", Email="abc1@abc.com", NewsLetter=true, Phone="15142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=2, Address="At Home 2", DOB="", Email="abc2@abc.com", NewsLetter=true, Phone="25142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=3, Address="At Home 3", DOB="", Email="abc3@abc.com", NewsLetter=true, Phone="35142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=4, Address="At Home 4", DOB="", Email="abc4@abc.com", NewsLetter=true, Phone="45142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=5, Address="At Home 5", DOB="", Email="abc5@abc.com", NewsLetter=true, Phone="55142323451",Sex="Famale"}
+                new MemberDetailMaster{MemberMasterID=1, Address="At Home 1", DOB="", Email="abc1@abc.com", NewsLetter=true, THome="15142323451",Sex="Male"},
+                new MemberDetailMaster{MemberMasterID=2, Address="At Home 2", DOB="", Email="abc2@abc.com", NewsLetter=true, THome="25142323451",Sex="Male"},
+                new MemberDetailMaster{MemberMasterID=3, Address="At Home 3", DOB="", Email="abc3@abc.com", NewsLetter=true, THome="35142323451",Sex="Male"},
+                new MemberDetailMaster{MemberMasterID=4, Address="At Home 4", DOB="", Email="abc4@abc.com", NewsLetter=true, THome="45142323451",Sex="Male"},
+                new MemberDetailMaster{MemberMasterID=5, Address="At Home 5", DOB="", Email="abc5@abc.com", NewsLetter=true, THome="55142323451",Sex="Famale"}
             };
             memberdetail.ForEach(c => context.MemberDetailMasters.AddOrUpdate(p => p.MemberMasterID, c));
             context.SaveChanges();

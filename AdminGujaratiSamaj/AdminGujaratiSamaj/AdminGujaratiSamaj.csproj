@@ -203,10 +203,6 @@
     <Compile Include="Migrations\201606131903441_mFirstMigration.Designer.cs">
       <DependentUpon>201606131903441_mFirstMigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609071146171_Fourth.cs" />
-    <Compile Include="Migrations\201609071146171_Fourth.Designer.cs">
-      <DependentUpon>201609071146171_Fourth.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EntryMaster.cs" />
@@ -334,9 +330,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201606131903441_mFirstMigration.resx">
       <DependentUpon>201606131903441_mFirstMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609071146171_Fourth.resx">
-      <DependentUpon>201609071146171_Fourth.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

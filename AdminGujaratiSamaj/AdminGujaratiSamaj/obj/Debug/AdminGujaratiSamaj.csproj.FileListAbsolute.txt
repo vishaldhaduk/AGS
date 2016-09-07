@@ -71,10 +71,3 @@ C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\Autof
 C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\Autofac.Integration.Mvc.dll
 C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\Autofac.xml
 C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\Autofac.Integration.Mvc.xml
-C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\PagedList.dll
-C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\PagedList.Mvc.dll
-C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\PagedList.xml
-C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\bin\PagedList.Mvc.xml
-C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\obj\Debug\AdminGujaratiSamaj.Migrations.mFirstMigration.resources
-C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\obj\Debug\AdminGujaratiSamaj.csproj.GenerateResource.Cache
-C:\Users\Vishal\Source\Repos\AGS\AdminGujaratiSamaj\AdminGujaratiSamaj\obj\Debug\AdminGujaratiSamaj.Migrations.Fourth.resources

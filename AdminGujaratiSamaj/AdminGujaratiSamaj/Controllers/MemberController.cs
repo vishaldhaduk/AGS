@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdminGujaratiSamaj.DAL;
 using AdminGujaratiSamaj.Models;
 using PagedList;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace AdminGujaratiSamaj.Controllers
 {
@@ -17,13 +18,22 @@ namespace AdminGujaratiSamaj.Controllers
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: Member
-        public ActionResult Index(int? page, string sortOrder)
+        public ActionResult Index(int? page, string sortOrder, string currentFilter, string searchString, string searchBy, string MemberId)
         {
             ViewBag.LNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lname_desc" : "";
             ViewBag.FNameSortParm = String.IsNullOrEmpty(sortOrder) ? "fname_asc" : "";
             ViewBag.FIDSortParm = String.IsNullOrEmpty(sortOrder) ? "family_id" : "";
 
-            IEnumerable<MemberMaster> Members = uow.MemberRepository.GetAll();
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            IEnumerable<MemberMaster> Members = SearhMembers(searchString, searchBy);
 
             switch (sortOrder)
             {
@@ -46,23 +56,101 @@ namespace AdminGujaratiSamaj.Controllers
             return View(Members.ToPagedList(pageNumber, pageSize));
         }
 
+        private IEnumerable<MemberMaster> SearhMembers(string searchString, string searchBy)
+        {
+            ViewBag.SearchBy = searchBy;
+            string searchField = "FName";
+            IEnumerable<MemberMaster> Members;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                switch (searchBy)
+                {
+                    case "1":
+                        searchField = "LName";
+                        Members = uow.MemberRepository.GetMany(s => s.LName.Contains(searchString));
+                        break;
+                    case "2":
+                        searchField = "BarcodeId";
+                        Members = uow.MemberRepository.GetMany(s => s.BarcodeId.Contains(searchString));
+                        break;
+                    case "3":
+                        searchField = "FamilyId";
+                        Members = uow.MemberRepository.GetMany(s => s.FamilyId.Contains(searchString));
+                        break;
+                    default:
+                        searchField = "FName";
+                        Members = uow.MemberRepository.GetMany(s => s.FName.Contains(searchString));
+                        break;
+                }
+            }
+            else
+                Members = uow.MemberRepository.GetAll();
+
+            ViewBag.SearchBy = searchField;
+            ViewBag.CurrentFilter = searchString;
+
+            return Members;
+        }
+
+        public JsonResult UpdateSearchCriteria(string term)
+        {
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SearchMemberAutoComplete(string term, string searchBy)
+        {
+            string a = GetCookieValue("search_criteria");
+            switch (a)
+            {
+                case "1":
+                    var result = uow.MemberRepository.GetNames(p => p.LName.StartsWith(term)).Select(m => new { label = m.LName, id = m.ID });
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                case "2":
+                    var result1 = uow.MemberRepository.GetNames(p => p.BarcodeId.StartsWith(term)).Select(m => new { label = m.BarcodeId, id = m.ID });
+                    return Json(result1, JsonRequestBehavior.AllowGet);
+                case "3":
+                    var result2 = uow.MemberRepository.GetNames(p => p.FamilyId.StartsWith(term)).Select(m => new { label = m.FamilyId, id = m.ID });
+                    return Json(result2, JsonRequestBehavior.AllowGet);
+                default:
+                    var result3 = uow.MemberRepository.GetNames(p => p.FName.StartsWith(term)).Select(m => new { label = m.FName, id = m.ID });
+                    return Json(result3, JsonRequestBehavior.AllowGet);
+            }
+
+            //uow.MemberRepository.GetNames(p => p.FName.StartsWith(term)).Select(m => new { label = m.FName, id = m.ID });
+            //return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public string GetCookieValue(string key)
+        {
+            if (Request.Cookies[key] != null)
+            {
+                string userSettings;
+                if (Request.Cookies[key] != null)
+                {
+                    userSettings = Request.Cookies[key].Value.ToString();
+                    return userSettings;
+                }
+            }
+            return "0";
+        }
 
         [HttpGet]
-        //Get : Products/Alternative
-        public ActionResult SearchMembers(string lName, int? page)
+        //Get : SEarch Members
+        public ActionResult SearchMembers(string fName, string criteria, int? page)
         {
             //lName = "Patel";
-            if (lName != null)
+            if (fName != null)
             {
-                lName = WebUtility.UrlDecode(lName);
+                fName = WebUtility.UrlDecode(fName);
                 int pageSize = 10;
                 int pageNumber = (page ?? 1);
-                return View("Index", uow.MemberRepository.GetMany(d => d.LName.ToLower().Contains(lName.ToLower())).ToPagedList(pageNumber, pageSize));
+                //IEnumerable<MemberMaster> Members = uow.MemberRepository.GetMany(d => d.FName.ToLower().Contains(fName.ToLower())).ToPagedList(pageNumber, pageSize);
+                return View("~/Views/Home/Index.cshtml", uow.MemberRepository.GetMany(d => d.FName.ToLower().Contains(fName.ToLower())).ToPagedList(pageNumber, pageSize));
+                //return RedirectToAction(Members);
             }
             else
                 return View();
         }
-
 
         // GET: Member/Details/5
         public ActionResult Details(int? id)

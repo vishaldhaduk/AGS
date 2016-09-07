@@ -20,8 +20,8 @@ namespace AdminGujaratiSamaj.DAL
         public DbSet<MemberMaster> MemberMasters { get; set; }
         public DbSet<MemberDetailMaster> MemberDetailMasters { get; set; }
         public DbSet<MemberManageMaster> MemberManageMasters { get; set; }
+        public DbSet<MemberAccountMaster> MemberAccountMasters { get; set; }
         public DbSet<NonMemberEntryMaster> NonMemberEntryMasters { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

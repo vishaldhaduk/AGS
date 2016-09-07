@@ -12,8 +12,8 @@ namespace AdminGujaratiSamaj.Models
         //[ForeignKey("MemberMaster")]
         public int MemberMasterID { get; set; }
         public string Address { get; set; }
-        public DateTime DOB { get; set; }
-        public String Sex { get; set; }
+        public string DOB { get; set; }
+        public string Sex { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Phone1 { get; set; }
@@ -21,6 +21,5 @@ namespace AdminGujaratiSamaj.Models
         public bool NewsLetter { get; set; }
         public virtual MemberMaster MemberMaster { get; set; }
         public string MemberType { get; set; }
-
     }
 }

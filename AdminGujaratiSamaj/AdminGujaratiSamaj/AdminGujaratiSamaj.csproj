@@ -211,10 +211,19 @@
     <Compile Include="Migrations\201609052142011_Third.Designer.cs">
       <DependentUpon>201609052142011_Third.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609071731028_Fourth.cs" />
+    <Compile Include="Migrations\201609071731028_Fourth.Designer.cs">
+      <DependentUpon>201609071731028_Fourth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609071739126_Fifth.cs" />
+    <Compile Include="Migrations\201609071739126_Fifth.Designer.cs">
+      <DependentUpon>201609071739126_Fifth.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EntryMaster.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MemberAccountMaster.cs" />
     <Compile Include="Models\MemberDetailMaster.cs" />
     <Compile Include="Models\MemberManageMaster.cs" />
     <Compile Include="Models\MemberMaster.cs" />
@@ -343,6 +352,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609052142011_Third.resx">
       <DependentUpon>201609052142011_Third.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609071731028_Fourth.resx">
+      <DependentUpon>201609071731028_Fourth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609071739126_Fifth.resx">
+      <DependentUpon>201609071739126_Fifth.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

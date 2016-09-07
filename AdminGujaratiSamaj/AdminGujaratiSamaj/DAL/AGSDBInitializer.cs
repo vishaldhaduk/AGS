@@ -26,11 +26,11 @@ namespace AdminGujaratiSamaj.DAL
 
             var memberdetail = new List<MemberDetailMaster>
             {
-                new MemberDetailMaster{MemberMasterID=1, Address="At Home 1", DOB=DateTime.Now, Email="abc1@abc.com", NewsLetter=true, Phone="15142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=2, Address="At Home 2", DOB=DateTime.Now, Email="abc2@abc.com", NewsLetter=true, Phone="25142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=3, Address="At Home 3", DOB=DateTime.Now, Email="abc3@abc.com", NewsLetter=true, Phone="35142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=4, Address="At Home 4", DOB=DateTime.Now, Email="abc4@abc.com", NewsLetter=true, Phone="45142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=5, Address="At Home 5", DOB=DateTime.Now, Email="abc5@abc.com", NewsLetter=true, Phone="55142323451",Sex="Famale"}
+                new MemberDetailMaster{MemberMasterID=1, Address="At Home 1", DOB="", Email="abc1@abc.com", NewsLetter=true, Phone="15142323451",Sex="Male"},
+                new MemberDetailMaster{MemberMasterID=2, Address="At Home 2", DOB="", Email="abc2@abc.com", NewsLetter=true, Phone="25142323451",Sex="Male"},
+                new MemberDetailMaster{MemberMasterID=3, Address="At Home 3", DOB="", Email="abc3@abc.com", NewsLetter=true, Phone="35142323451",Sex="Male"},
+                new MemberDetailMaster{MemberMasterID=4, Address="At Home 4", DOB="", Email="abc4@abc.com", NewsLetter=true, Phone="45142323451",Sex="Male"},
+                new MemberDetailMaster{MemberMasterID=5, Address="At Home 5", DOB="", Email="abc5@abc.com", NewsLetter=true, Phone="55142323451",Sex="Famale"}
             };
             memberdetail.ForEach(c => context.MemberDetailMasters.AddOrUpdate(p => p.MemberMasterID, c));
             context.SaveChanges();

@@ -203,6 +203,14 @@
     <Compile Include="Migrations\201606131903441_mFirstMigration.Designer.cs">
       <DependentUpon>201606131903441_mFirstMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609052132450_second.cs" />
+    <Compile Include="Migrations\201609052132450_second.Designer.cs">
+      <DependentUpon>201609052132450_second.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609052142011_Third.cs" />
+    <Compile Include="Migrations\201609052142011_Third.Designer.cs">
+      <DependentUpon>201609052142011_Third.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EntryMaster.cs" />
@@ -317,7 +325,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Migration\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -330,6 +337,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201606131903441_mFirstMigration.resx">
       <DependentUpon>201606131903441_mFirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609052132450_second.resx">
+      <DependentUpon>201609052132450_second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609052142011_Third.resx">
+      <DependentUpon>201609052142011_Third.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

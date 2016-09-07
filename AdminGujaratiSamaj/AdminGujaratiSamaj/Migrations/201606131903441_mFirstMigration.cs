@@ -27,7 +27,7 @@ namespace AdminGujaratiSamaj.Migrations
                 "dbo.MemberMaster",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        ID = c.Int(nullable: false, identity: false),
                         BarcodeId = c.String(),
                         LName = c.String(),
                         FName = c.String(),

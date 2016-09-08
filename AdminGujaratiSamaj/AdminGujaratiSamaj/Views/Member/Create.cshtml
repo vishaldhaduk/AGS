@@ -24,10 +24,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LName, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Title,
+                       new SelectList(new List<Object>{
+                       new { value = "Select" , text = "--Select--"  },
+                       new { value = "Mr" , text = "Mr" },
+                       new { value = "Mrs" , text = "Mrs"},
+                       new { value = "Miss" , text = "Miss"}
+                       }, "value", "text", 1), new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.Title, "",
+                       new { @class = "text-danger" })
             </div>
         </div>
 
@@ -36,6 +44,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LName, "", new { @class = "text-danger" })
             </div>
         </div>
 

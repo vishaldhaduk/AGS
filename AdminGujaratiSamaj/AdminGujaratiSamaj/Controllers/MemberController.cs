@@ -179,13 +179,17 @@ namespace AdminGujaratiSamaj.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,BarcodeId,LName,FName,IsPrimary,FamilyId")] MemberMaster memberMaster)
+        public ActionResult Create([Bind(Include = "ID,Title,BarcodeId,LName,FName,IsPrimary,FamilyId")] MemberMaster memberMaster)
         {
             if (ModelState.IsValid)
             {
+                IEnumerable<MemberMaster> Members = uow.MemberRepository.GetAll();
+                int max = Members.Max(i => i.ID);
+                int newid = max + 1;
+                memberMaster.ID = max + 1;
                 uow.MemberRepository.Add(memberMaster);
                 uow.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = newid });
             }
 
             return View(memberMaster);

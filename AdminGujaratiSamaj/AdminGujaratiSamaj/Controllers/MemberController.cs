@@ -160,12 +160,30 @@ namespace AdminGujaratiSamaj.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             MemberMaster memberMaster = uow.MemberRepository.GetByID(id);
+
+            IEnumerable<MemberMaster> member = uow.MemberRepository.GetMemberByFamilyId(memberMaster.FamilyId);
+
+            IEnumerable<MemberDetailMaster> memberDetail = uow.MemberDetailRepository.GetMemberDetail(id);
+
+            MemberDetailMaster memberDetailMaster = memberDetail.First();
+
+            if (memberDetail.Count() > 1)
+                memberDetailMaster = memberDetail.Where(p => p.MemberMasterID == id).First();
+
+            //var modelCollection = new ModelCollection();
+            //modelCollection.AddModel(memberMaster);
+            //modelCollection.AddModel(memberDetailMaster);
+
             if (memberMaster == null)
             {
                 return HttpNotFound();
             }
-            return View(memberMaster);
+
+            var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster>(memberMaster, member, memberDetailMaster);
+
+            return View(tuple);
         }
 
         // GET: Member/Create

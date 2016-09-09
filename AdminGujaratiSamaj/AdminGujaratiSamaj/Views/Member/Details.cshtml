@@ -1,59 +1,179 @@
-﻿@model AdminGujaratiSamaj.Models.MemberMaster
-
+﻿@using AdminGujaratiSamaj.Models;
+@model Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster>
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Member Details</h2>
 
-<div>
-    <h4>MemberMaster</h4>
-    <hr />
+<div class="col-lg-6">
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.BarcodeId)
+            @Html.DisplayNameFor(tuple => tuple.Item1.FullName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BarcodeId)
+            @Html.DisplayFor(tuple => tuple.Item1.FullName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LName)
+            @Html.DisplayNameFor(tuple => tuple.Item1.FamilyId)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.LName)
+            @Html.DisplayFor(tuple => tuple.Item1.FamilyId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FName)
+            @Html.DisplayNameFor(tuple => tuple.Item1.BarcodeId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FName)
+            @Html.DisplayFor(tuple => tuple.Item1.BarcodeId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.IsPrimary)
+            @Html.DisplayNameFor(tuple => tuple.Item1.IsPrimary)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.IsPrimary)
+            @Html.DisplayFor(tuple => tuple.Item1.IsPrimary)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FamilyId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FamilyId)
-        </dd>
-
     </dl>
 </div>
+
+
+<div class="col-lg-6">
+        <dl class="dl-horizontal" style="text-orientation:sideways-right">
+            <dt>
+                @Html.DisplayNameFor(tuple => tuple.Item3.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(tuple => tuple.Item3.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(tuple => tuple.Item3.DOB)
+            </dt>
+            <dd>
+                @Html.DisplayFor(tuple => tuple.Item3.DOB)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(tuple => tuple.Item3.Sex)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(tuple => tuple.Item3.Sex)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(tuple => tuple.Item3.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(tuple => tuple.Item3.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(tuple => tuple.Item3.MemberType)
+            </dt>
+            <dd>
+                @Html.DisplayFor(tuple => tuple.Item3.MemberType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(tuple => tuple.Item3.THome)
+            </dt>
+            <dd>
+                @Html.DisplayFor(tuple => tuple.Item3.THome)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(tuple => tuple.Item3.TBusiness)
+            </dt>
+            <dd>
+                @Html.DisplayFor(tuple => tuple.Item3.TBusiness)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(tuple => tuple.Item3.TFax)
+            </dt>
+            <dd>
+                @Html.DisplayFor(tuple => tuple.Item3.TFax)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(tuple => tuple.Item3.NewsLetter)
+            </dt>
+            <dd>
+                @Html.DisplayFor(tuple => tuple.Item3.NewsLetter)
+            </dd>
+
+        </dl>
+    </div>
+
+<hr />
+<hr />
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Family Id", "Index", new { sortOrder = ViewBag.FIDSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model.Item1.BarcodeId)
+        </th>
+        <th>
+            @Html.ActionLink("Title", "Index")
+        </th>
+        <th>
+            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FNameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LNameSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model.Item1.IsPrimary)
+        </th>
+       
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Item2)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.FamilyId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.BarcodeId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.LName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.IsPrimary)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FamilyId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

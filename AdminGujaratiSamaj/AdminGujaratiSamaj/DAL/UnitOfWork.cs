@@ -10,6 +10,7 @@ namespace AdminGujaratiSamaj.DAL
     {
         private AGSDBContext context = new AGSDBContext();
         private MemberRepository memberRepository;
+        private MemberDetailRepository memberDetailRepository;
         private NonMemberEntryRepository nonMemberEntryRepository;
         private EntryRepository entryRepository;
 
@@ -24,6 +25,18 @@ namespace AdminGujaratiSamaj.DAL
                     this.memberRepository = new MemberRepository(context);
                 }
                 return memberRepository;
+            }
+        }
+
+        public MemberDetailRepository MemberDetailRepository
+        {
+            get
+            {
+                if (this.memberDetailRepository == null)
+                {
+                    this.memberDetailRepository = new MemberDetailRepository(context);
+                }
+                return memberDetailRepository;
             }
         }
 
@@ -56,7 +69,9 @@ namespace AdminGujaratiSamaj.DAL
         {
             context.SaveChanges();
         }
+
         private bool disposed = false;
+
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -68,6 +83,7 @@ namespace AdminGujaratiSamaj.DAL
             }
             this.disposed = true;
         }
+
         public void Dispose()
         {
             Dispose(true);

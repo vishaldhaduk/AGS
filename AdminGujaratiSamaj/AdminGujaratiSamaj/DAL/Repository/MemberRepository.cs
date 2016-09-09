@@ -25,6 +25,11 @@ namespace AdminGujaratiSamaj.DAL.Repository
             return members;
         }
 
+        public IEnumerable<MemberMaster> GetMemberByFamilyId(int fId)
+        {
+            IEnumerable<MemberMaster> m = context.MemberMasters.Where(p => p.FamilyId == fId);
+            return m;
+        }
         public List<int> GetMember(int mID)
         {
             List<int> mIDs = new List<int>();

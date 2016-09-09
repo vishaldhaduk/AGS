@@ -1,0 +1,99 @@
+﻿@model AdminGujaratiSamaj.Models.MemberDetailMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MemberDetailMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberMaster.BarcodeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberMaster.BarcodeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.THome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.THome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TBusiness)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TBusiness)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TFax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TFax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsLetter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewsLetter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

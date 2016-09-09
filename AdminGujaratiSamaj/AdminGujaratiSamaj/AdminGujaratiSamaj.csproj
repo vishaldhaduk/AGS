@@ -192,6 +192,7 @@
     <Compile Include="DAL\AGSDBContext.cs" />
     <Compile Include="DAL\AGSDBInitializer.cs" />
     <Compile Include="DAL\Repository\EntryRepository.cs" />
+    <Compile Include="DAL\Repository\MemberDetailRepository.cs" />
     <Compile Include="DAL\Repository\MemberRepository.cs" />
     <Compile Include="DAL\Repository\NonMemberEntryRepository.cs" />
     <Compile Include="DAL\Repository\Repository.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Models\MemberDetailMaster.cs" />
     <Compile Include="Models\MemberManageMaster.cs" />
     <Compile Include="Models\MemberMaster.cs" />
+    <Compile Include="Models\ModelCollection.cs" />
     <Compile Include="Models\NonMemberEntryMaster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -297,7 +299,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

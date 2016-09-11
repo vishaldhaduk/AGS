@@ -43,74 +43,74 @@
 
 
 <div class="col-lg-6">
-        <dl class="dl-horizontal" style="text-orientation:sideways-right">
-            <dt>
-                @Html.DisplayNameFor(tuple => tuple.Item3.Address)
-            </dt>
+    <dl class="dl-horizontal" style="text-orientation:sideways-right">
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item3.Address)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(tuple => tuple.Item3.Address)
-            </dd>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item3.Address)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(tuple => tuple.Item3.DOB)
-            </dt>
-            <dd>
-                @Html.DisplayFor(tuple => tuple.Item3.DOB)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item3.DOB)
+        </dt>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item3.DOB)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(tuple => tuple.Item3.Sex)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item3.Sex)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(tuple => tuple.Item3.Sex)
-            </dd>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item3.Sex)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(tuple => tuple.Item3.Email)
-            </dt>
-            <dd>
-                @Html.DisplayFor(tuple => tuple.Item3.Email)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item3.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item3.Email)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(tuple => tuple.Item3.MemberType)
-            </dt>
-            <dd>
-                @Html.DisplayFor(tuple => tuple.Item3.MemberType)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item3.MemberType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item3.MemberType)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(tuple => tuple.Item3.THome)
-            </dt>
-            <dd>
-                @Html.DisplayFor(tuple => tuple.Item3.THome)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item3.THome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item3.THome)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(tuple => tuple.Item3.TBusiness)
-            </dt>
-            <dd>
-                @Html.DisplayFor(tuple => tuple.Item3.TBusiness)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item3.TBusiness)
+        </dt>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item3.TBusiness)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(tuple => tuple.Item3.TFax)
-            </dt>
-            <dd>
-                @Html.DisplayFor(tuple => tuple.Item3.TFax)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item3.TFax)
+        </dt>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item3.TFax)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(tuple => tuple.Item3.NewsLetter)
-            </dt>
-            <dd>
-                @Html.DisplayFor(tuple => tuple.Item3.NewsLetter)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item3.NewsLetter)
+        </dt>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item3.NewsLetter)
+        </dd>
 
-        </dl>
-    </div>
+    </dl>
+</div>
 
 <hr />
 <hr />
@@ -136,7 +136,11 @@
         <th>
             @Html.DisplayNameFor(model => Model.Item1.IsPrimary)
         </th>
-       
+
+        <th>
+            @Html.ActionLink("Add New Member", "Create", new { id=ViewBag.FamilyId })
+        </th>
+
         <th></th>
     </tr>
 
@@ -162,10 +166,8 @@
                 @Html.DisplayFor(model => item.IsPrimary)
             </td>
             <td>
-                @Html.DisplayFor(model => item.FamilyId)
-            </td>
-            <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Add Details", "AddDetails", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>

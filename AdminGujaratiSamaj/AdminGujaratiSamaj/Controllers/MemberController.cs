@@ -163,9 +163,13 @@ namespace AdminGujaratiSamaj.Controllers
 
             MemberMaster memberMaster = uow.MemberRepository.GetByID(id);
 
+            ViewBag.FamilyId = memberMaster.FamilyId;
+
             IEnumerable<MemberMaster> member = uow.MemberRepository.GetMemberByFamilyId(memberMaster.FamilyId);
 
             IEnumerable<MemberDetailMaster> memberDetail = uow.MemberDetailRepository.GetMemberDetail(id);
+
+            //if (memberDetail.Count() != 0)
 
             MemberDetailMaster memberDetailMaster = memberDetail.First();
 
@@ -187,8 +191,25 @@ namespace AdminGujaratiSamaj.Controllers
         }
 
         // GET: Member/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            IEnumerable<MemberMaster> Members = uow.MemberRepository.GetAll();
+            int fId = Members.Max(i => i.FamilyId);
+            int mId = Members.Max(i => i.ID);
+            mId = mId + 1;
+
+            if (id == null)
+            {
+                fId = fId + 1;
+                ViewData["FamilyId"] = fId;
+                ViewData["BarcodeId"] = string.Concat(mId, "+", fId);
+            }
+            else
+            {
+                ViewData["FamilyId"] = id;
+                ViewData["BarcodeId"] = string.Concat(mId, "+", id);
+            }
+
             return View();
         }
 

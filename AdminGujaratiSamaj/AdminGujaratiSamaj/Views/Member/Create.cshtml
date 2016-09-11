@@ -6,11 +6,12 @@
 }
 
 <h2>Create</h2>
+@*@using (Html.BeginForm("Member", "Create", FormMethod.Post, new { id = ViewData["FamilyId"]}))*@
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>MemberMaster</h4>
         <hr />
@@ -18,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BarcodeId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BarcodeId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.BarcodeId, new { htmlAttributes = new { @class = "form-control", @Value = ViewData["BarcodeId"] } })
                 @Html.ValidationMessageFor(model => model.BarcodeId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -27,15 +28,15 @@
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Title,
-                       new SelectList(new List<Object>{
+            new SelectList(new List<Object>{
                        new { value = "Select" , text = "--Select--"  },
                        new { value = "Mr" , text = "Mr" },
                        new { value = "Mrs" , text = "Mrs"},
                        new { value = "Miss" , text = "Miss"}
-                       }, "value", "text", 1), new { @class = "form-control" })
+            }, "value", "text", 1), new { @class = "form-control" })
 
                 @Html.ValidationMessageFor(model => model.Title, "",
-                       new { @class = "text-danger" })
+            new { @class = "text-danger" })
             </div>
         </div>
 
@@ -68,8 +69,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FamilyId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FamilyId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FamilyId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.FamilyId, new { htmlAttributes = new { @class = "form-control", @Value=ViewData["FamilyId"] } })
+                @*value = "<%= ViewData["FamilyId"] %>"*@
+                @*@Html.ValidationMessageFor(model => model.FamilyId, "", new { @class = "text-danger" })*@
             </div>
         </div>
 

@@ -162,27 +162,28 @@ namespace AdminGujaratiSamaj.Controllers
             }
 
             MemberMaster memberMaster = uow.MemberRepository.GetByID(id);
-
             ViewBag.FamilyId = memberMaster.FamilyId;
-
             IEnumerable<MemberMaster> member = uow.MemberRepository.GetMemberByFamilyId(memberMaster.FamilyId);
 
             IEnumerable<MemberDetailMaster> memberDetail = uow.MemberDetailRepository.GetMemberDetail(id);
-            MemberDetailMaster memberDetailMaster;
-            //if (memberDetail.Count() != 0)
+            MemberDetailMaster memberDetailMaster = new MemberDetailMaster();
+
             if (memberDetail.Count() > 0)
             {
                 memberDetailMaster = memberDetail.First();
                 memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
-
-                var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster>(memberMaster, member, memberDetailMaster);
-
+                var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster>
+                    (memberMaster, member, memberDetailMaster);
                 return View(tuple);
             }
-            //var modelCollection = new ModelCollection();
-            //modelCollection.AddModel(memberMaster);
-            //modelCollection.AddModel(memberDetailMaster);
-
+            else
+            {
+                //memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
+                var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster>
+                    (memberMaster, member, memberDetailMaster);
+                return View(tuple);
+            }
+            
             if (memberMaster == null)
             {
                 return HttpNotFound();
@@ -325,7 +326,7 @@ namespace AdminGujaratiSamaj.Controllers
                 //memberMaster.ID = max + 1;
                 uow.MemberDetailRepository.Add(memberDetailMaster);
                 uow.Save();
-                return RedirectToAction("Details", new { id = memberDetailMaster.ID });
+                return RedirectToAction("Details", new { id = memberDetailMaster.MemberID });
                 //return RedirectToAction("Details", new { id = newid });
             }
             return View(memberDetailMaster);
@@ -335,7 +336,6 @@ namespace AdminGujaratiSamaj.Controllers
         {
             if (id != null)
                 ViewData["EMID"] = id;
-
 
             if (id == null)
             {
@@ -356,21 +356,17 @@ namespace AdminGujaratiSamaj.Controllers
                 return HttpNotFound();
             }
             return View("~/Views/Member/AddDetails.cshtml");
-
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditDetails([Bind(Include = "ID,MemberID,Address,DOB,Sex,Email,THome,TBusiness,TFax,NewsLetter,MemberType")] MemberDetailMaster memberDetailMaster)
         {
             if (ModelState.IsValid)
             {
-                //IEnumerable<MemberDetailMaster> MembersDetails = uow.MemberDetailRepository.GetAll();
-                //int max = MembersDetails.Max(i => i.ID);
-                //int newid = max + 1;
-                //memberMaster.ID = max + 1;
                 uow.MemberDetailRepository.Update(memberDetailMaster);
                 uow.Save();
-                return RedirectToAction("Details", new { id = memberDetailMaster.ID });
+                return RedirectToAction("Details", new { id = memberDetailMaster.MemberID });
                 //return RedirectToAction("Details", new { id = newid });
             }
             return View(memberDetailMaster);

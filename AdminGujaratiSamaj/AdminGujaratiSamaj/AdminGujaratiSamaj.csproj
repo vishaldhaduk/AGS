@@ -305,6 +305,8 @@
     <Content Include="Views\Entry\Details.cshtml" />
     <Content Include="Views\Entry\Edit.cshtml" />
     <Content Include="Views\Entry\Index.cshtml" />
+    <Content Include="Views\Member\AddDetails.cshtml" />
+    <Content Include="Views\Member\EditDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

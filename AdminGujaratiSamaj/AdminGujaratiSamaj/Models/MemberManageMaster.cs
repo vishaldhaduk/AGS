@@ -9,8 +9,8 @@ namespace AdminGujaratiSamaj.Models
     public class MemberManageMaster
     {
         public int ID { get; set; }
-        //[ForeignKey("MemberMaster")]
-        public int MemberMasterID { get; set; }
+        [ForeignKey("MemberMaster")]
+        public int MemberID { get; set; }
         public int PMemberID { get; set; }
         public virtual MemberMaster MemberMaster { get; set; }
     }

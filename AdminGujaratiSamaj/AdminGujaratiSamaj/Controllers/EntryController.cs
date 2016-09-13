@@ -77,7 +77,7 @@ namespace AdminGujaratiSamaj.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,MemberMasterID,Paid,SeatNo,DiwaliPass,Date,Comment")] EntryMaster entryMaster)
+        public ActionResult Create([Bind(Include = "ID,MemberID,Paid,SeatNo,DiwaliPass,Date,Comment")] EntryMaster entryMaster)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace AdminGujaratiSamaj.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MemberMasterID = new SelectList(uow.MemberRepository.GetAll(), "ID", "BarcodeId", entryMaster.MemberMasterID);
+            ViewBag.MemberMasterID = new SelectList(uow.MemberRepository.GetAll(), "ID", "BarcodeId", entryMaster.MemberID);
             return View(entryMaster);
         }
 
@@ -102,7 +102,7 @@ namespace AdminGujaratiSamaj.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MemberMasterID = new SelectList(uow.MemberRepository.GetAll(), "ID", "BarcodeId", entryMaster.MemberMasterID);
+            ViewBag.MemberMasterID = new SelectList(uow.MemberRepository.GetAll(), "ID", "BarcodeId", entryMaster.MemberID);
             return View(entryMaster);
         }
 
@@ -111,7 +111,7 @@ namespace AdminGujaratiSamaj.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,MemberMasterID,Paid,SeatNo,DiwaliPass,Date,Comment")] EntryMaster entryMaster)
+        public ActionResult Edit([Bind(Include = "ID,MemberID,Paid,SeatNo,DiwaliPass,Date,Comment")] EntryMaster entryMaster)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +119,7 @@ namespace AdminGujaratiSamaj.Controllers
                 uow.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.MemberMasterID = new SelectList(uow.MemberRepository.GetAll(), "ID", "BarcodeId", entryMaster.MemberMasterID);
+            ViewBag.MemberMasterID = new SelectList(uow.MemberRepository.GetAll(), "ID", "BarcodeId", entryMaster.MemberID);
             return View(entryMaster);
         }
 

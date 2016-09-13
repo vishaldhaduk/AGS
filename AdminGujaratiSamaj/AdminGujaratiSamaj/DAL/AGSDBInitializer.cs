@@ -26,34 +26,34 @@ namespace AdminGujaratiSamaj.DAL
 
             var memberdetail = new List<MemberDetailMaster>
             {
-                new MemberDetailMaster{MemberMasterID=1, Address="At Home 1", DOB="", Email="abc1@abc.com", NewsLetter=true, THome="15142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=2, Address="At Home 2", DOB="", Email="abc2@abc.com", NewsLetter=true, THome="25142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=3, Address="At Home 3", DOB="", Email="abc3@abc.com", NewsLetter=true, THome="35142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=4, Address="At Home 4", DOB="", Email="abc4@abc.com", NewsLetter=true, THome="45142323451",Sex="Male"},
-                new MemberDetailMaster{MemberMasterID=5, Address="At Home 5", DOB="", Email="abc5@abc.com", NewsLetter=true, THome="55142323451",Sex="Famale"}
+                new MemberDetailMaster{MemberID=1, Address="At Home 1", DOB="", Email="abc1@abc.com", NewsLetter=true, THome="15142323451",Sex="Male"},
+                new MemberDetailMaster{MemberID=2, Address="At Home 2", DOB="", Email="abc2@abc.com", NewsLetter=true, THome="25142323451",Sex="Male"},
+                new MemberDetailMaster{MemberID=3, Address="At Home 3", DOB="", Email="abc3@abc.com", NewsLetter=true, THome="35142323451",Sex="Male"},
+                new MemberDetailMaster{MemberID=4, Address="At Home 4", DOB="", Email="abc4@abc.com", NewsLetter=true, THome="45142323451",Sex="Male"},
+                new MemberDetailMaster{MemberID=5, Address="At Home 5", DOB="", Email="abc5@abc.com", NewsLetter=true, THome="55142323451",Sex="Famale"}
             };
-            memberdetail.ForEach(c => context.MemberDetailMasters.AddOrUpdate(p => p.MemberMasterID, c));
+            memberdetail.ForEach(c => context.MemberDetailMasters.AddOrUpdate(p => p.MemberID, c));
             context.SaveChanges();
 
             var entry = new List<EntryMaster>
             {
-                new EntryMaster{MemberMasterID=1,Date=DateTime.Now, DiwaliPass=false, Paid=false, Comment="1Alexander bought it",SeatNo="SG-21"},
-                new EntryMaster{MemberMasterID=2,Date=DateTime.Now, DiwaliPass=false, Paid=false, Comment="2Alexander bought it",SeatNo="SG-22"},
-                new EntryMaster{MemberMasterID=3,Date=DateTime.Now, DiwaliPass=true, Paid=true, Comment="3Alexander bought it",SeatNo="SG-23"},
-                new EntryMaster{MemberMasterID=4,Date=DateTime.Now, DiwaliPass=true, Paid=true, Comment="4Alexander bought it",SeatNo="SG-24"},
-                new EntryMaster{MemberMasterID=5,Date=DateTime.Now, DiwaliPass=false, Paid=false, Comment="5Alexander bought it",SeatNo="SG-25"}
+                new EntryMaster{MemberID=1,Date=DateTime.Now, DiwaliPass=false, Paid=false, Comment="1Alexander bought it",SeatNo="SG-21"},
+                new EntryMaster{MemberID=2,Date=DateTime.Now, DiwaliPass=false, Paid=false, Comment="2Alexander bought it",SeatNo="SG-22"},
+                new EntryMaster{MemberID=3,Date=DateTime.Now, DiwaliPass=true, Paid=true, Comment="3Alexander bought it",SeatNo="SG-23"},
+                new EntryMaster{MemberID=4,Date=DateTime.Now, DiwaliPass=true, Paid=true, Comment="4Alexander bought it",SeatNo="SG-24"},
+                new EntryMaster{MemberID=5,Date=DateTime.Now, DiwaliPass=false, Paid=false, Comment="5Alexander bought it",SeatNo="SG-25"}
             };
-            entry.ForEach(c => context.EntryMasters.AddOrUpdate(p => p.MemberMasterID, c));
+            entry.ForEach(c => context.EntryMasters.AddOrUpdate(p => p.MemberID, c));
             context.SaveChanges();
 
             var membermanage = new List<MemberManageMaster>
             {
-                new MemberManageMaster{MemberMasterID=2,PMemberID=1},
-                new MemberManageMaster{MemberMasterID=3,PMemberID=1},
-                new MemberManageMaster{MemberMasterID=5,PMemberID=4}
+                new MemberManageMaster{MemberID=2,PMemberID=1},
+                new MemberManageMaster{MemberID=3,PMemberID=1},
+                new MemberManageMaster{MemberID=5,PMemberID=4}
 
             };
-            membermanage.ForEach(c => context.MemberManageMasters.AddOrUpdate(p => p.MemberMasterID, c));
+            membermanage.ForEach(c => context.MemberManageMasters.AddOrUpdate(p => p.MemberID, c));
             context.SaveChanges();
 
             var nonmember = new List<NonMemberEntryMaster>

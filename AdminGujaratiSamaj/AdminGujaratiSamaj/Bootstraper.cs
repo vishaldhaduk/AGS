@@ -13,6 +13,7 @@ using AdminGujaratiSamaj.DAL;
 using Autofac.Integration.Mvc;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
+using AdminGujaratiSamaj.Models.UserManagement;
 
 namespace AdminGujaratiSamaj
 {

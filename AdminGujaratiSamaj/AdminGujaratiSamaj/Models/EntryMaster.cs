@@ -9,8 +9,8 @@ namespace AdminGujaratiSamaj.Models
     public class EntryMaster
     {
         public int ID { get; set; }
-        //[ForeignKey("AdminGujaratiSamaj.Models.MemberMaster")]
-        public int MemberMasterID { get; set; }
+        [ForeignKey("MemberMaster")]
+        public int MemberID { get; set; }
         public bool Paid { get; set; }
         public string SeatNo { get; set; }
         public bool DiwaliPass { get; set; }

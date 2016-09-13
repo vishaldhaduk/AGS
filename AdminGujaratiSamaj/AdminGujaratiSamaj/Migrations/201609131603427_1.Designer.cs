@@ -7,13 +7,13 @@ namespace AdminGujaratiSamaj.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class second : IMigrationMetadata
+    public sealed partial class _1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(second));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609052132450_second"; }
+            get { return "201609131603427_1"; }
         }
         
         string IMigrationMetadata.Source

@@ -16,7 +16,7 @@ namespace AdminGujaratiSamaj.DAL.Repository
 
         internal IEnumerable<MemberDetailMaster> GetMemberDetail(int? id)
         {
-            var m = context.MemberDetailMasters.Where(p => p.MemberMasterID == id);
+            var m = context.MemberDetailMasters.Where(p => p.MemberID == id);
             return m;
         }
 

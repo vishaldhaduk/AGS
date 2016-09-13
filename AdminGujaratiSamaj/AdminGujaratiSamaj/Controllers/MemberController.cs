@@ -174,7 +174,7 @@ namespace AdminGujaratiSamaj.Controllers
             MemberDetailMaster memberDetailMaster = memberDetail.First();
 
             if (memberDetail.Count() > 1)
-                memberDetailMaster = memberDetail.Where(p => p.MemberMasterID == id).First();
+                memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
 
             //var modelCollection = new ModelCollection();
             //modelCollection.AddModel(memberMaster);
@@ -299,5 +299,36 @@ namespace AdminGujaratiSamaj.Controllers
             }
             base.Dispose(disposing);
         }
+
+                // GET: Member/Create
+        public ActionResult AddDetails(int? id)
+        {
+            if (id != null)
+                ViewData["MID"] = id;
+                
+            return View();
+        }
+
+        // POST: Member/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddDetails([Bind(Include = "ID,MemberID,Address,DOB,Sex,Email,THome,TBusiness,TFax,NewsLetter,MemberType")] MemberDetailMaster memberDetailMaster)
+        {
+            if (ModelState.IsValid)
+            {
+                IEnumerable<MemberDetailMaster> MembersDetails = uow.MemberDetailRepository.GetAll();
+                int max = MembersDetails.Max(i => i.ID);
+                int newid = max + 1;
+                //memberMaster.ID = max + 1;
+                uow.MemberDetailRepository.Add(memberDetailMaster);
+                //uow.Save();
+                return RedirectToAction("Details", new { id = memberDetailMaster });
+                //return RedirectToAction("Details", new { id = newid });
+            }
+            return View(memberDetailMaster);
+        }
+        //Request.Form["FName"];
     }
 }

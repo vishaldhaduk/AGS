@@ -1,4 +1,5 @@
 ﻿using AdminGujaratiSamaj.Models;
+using AdminGujaratiSamaj.Models.UserManagement;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -16,16 +17,15 @@ namespace AdminGujaratiSamaj.DAL
 
         }
 
-        public DbSet<EntryMaster> EntryMasters { get; set; }
         public DbSet<MemberMaster> MemberMasters { get; set; }
         public DbSet<MemberDetailMaster> MemberDetailMasters { get; set; }
+        public DbSet<EntryMaster> EntryMasters { get; set; }
         public DbSet<MemberManageMaster> MemberManageMasters { get; set; }
         public DbSet<MemberAccountMaster> MemberAccountMasters { get; set; }
         public DbSet<NonMemberEntryMaster> NonMemberEntryMasters { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
 
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);

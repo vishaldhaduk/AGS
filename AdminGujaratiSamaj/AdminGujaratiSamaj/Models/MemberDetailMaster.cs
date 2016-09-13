@@ -9,8 +9,8 @@ namespace AdminGujaratiSamaj.Models
     public class MemberDetailMaster
     {
         public int ID { get; set; }
-        //[ForeignKey("MemberMaster")]
-        public int MemberMasterID { get; set; }
+        [ForeignKey("MemberMaster")]
+        public int MemberID { get; set; }
         public string Address { get; set; }
         public string DOB { get; set; }
         public string Sex { get; set; }

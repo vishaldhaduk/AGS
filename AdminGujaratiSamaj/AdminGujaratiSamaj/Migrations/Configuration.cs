@@ -9,7 +9,7 @@ namespace AdminGujaratiSamaj.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(AdminGujaratiSamaj.DAL.AGSDBContext context)

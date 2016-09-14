@@ -183,7 +183,7 @@ namespace AdminGujaratiSamaj.Controllers
                     (memberMaster, member, memberDetailMaster);
                 return View(tuple);
             }
-            
+
             if (memberMaster == null)
             {
                 return HttpNotFound();
@@ -364,6 +364,10 @@ namespace AdminGujaratiSamaj.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Get ID first and then update.
+                IEnumerable<MemberDetailMaster> MembersDetails = uow.MemberDetailRepository.GetMemberDetail(memberDetailMaster.MemberID);
+                memberDetailMaster.ID = MembersDetails.First().ID;
+
                 uow.MemberDetailRepository.Update(memberDetailMaster);
                 uow.Save();
                 return RedirectToAction("Details", new { id = memberDetailMaster.MemberID });
@@ -371,6 +375,5 @@ namespace AdminGujaratiSamaj.Controllers
             }
             return View(memberDetailMaster);
         }
-
     }
 }

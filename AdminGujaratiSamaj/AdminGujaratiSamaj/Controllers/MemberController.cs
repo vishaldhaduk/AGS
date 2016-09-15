@@ -61,25 +61,36 @@ namespace AdminGujaratiSamaj.Controllers
             ViewBag.SearchBy = searchBy;
             string searchField = "FName";
             IEnumerable<MemberMaster> Members;
+
             if (!String.IsNullOrEmpty(searchString))
             {
+                string[] data = null;
+                string search = null;
+                if (!string.IsNullOrEmpty(searchString))
+                    data = searchString.Split(new string[] { " : " }, StringSplitOptions.None);
+
+
                 switch (searchBy)
                 {
                     case "1":
                         searchField = "LName";
-                        Members = uow.MemberRepository.GetMany(s => s.LName.Contains(searchString));
+                        search = data[2].ToString();
+                        Members = uow.MemberRepository.GetMany(s => s.LName.Contains(search));
                         break;
                     case "2":
                         searchField = "BarcodeId";
-                        Members = uow.MemberRepository.GetMany(s => s.BarcodeId.Contains(searchString));
+                        search = data[0].ToString();
+                        Members = uow.MemberRepository.GetMany(s => s.BarcodeId.Contains(search));
                         break;
                     case "3":
                         searchField = "FamilyId";
-                        Members = uow.MemberRepository.GetMany(s => s.BarcodeId.Contains(searchString));
+                        search = data[0].ToString();
+                        Members = uow.MemberRepository.GetMany(s => s.BarcodeId.Contains(search));
                         break;
                     default:
                         searchField = "FName";
-                        Members = uow.MemberRepository.GetMany(s => s.FName.Contains(searchString));
+                        search = data[1].ToString();
+                        Members = uow.MemberRepository.GetMany(s => s.FName.Contains(search));
                         break;
                 }
             }
@@ -103,17 +114,17 @@ namespace AdminGujaratiSamaj.Controllers
             switch (a)
             {
                 case "1":
-                    var result = uow.MemberRepository.GetNames(p => p.LName.StartsWith(term)).Select(m => new { label = m.LName, id = m.ID });
+                    var result = uow.MemberRepository.GetNames(p => p.LName.StartsWith(term)).Select(m => new { label = string.Concat(m.BarcodeId, " : ", m.FName, " : ", m.LName), id = m.ID });
                     return Json(result, JsonRequestBehavior.AllowGet);
                 case "2":
-                    var result1 = uow.MemberRepository.GetNames(p => p.BarcodeId.StartsWith(term)).Select(m => new { label = m.BarcodeId, id = m.ID });
+                    var result1 = uow.MemberRepository.GetNames(p => p.BarcodeId.StartsWith(term)).Select(m => new { label = string.Concat(m.BarcodeId, " : ", m.FName, " : ", m.LName), id = m.ID });
                     return Json(result1, JsonRequestBehavior.AllowGet);
                 case "3":
-                    var result2 = uow.MemberRepository.GetNames(p => p.BarcodeId.StartsWith(term)).Select(m => new { label = m.BarcodeId, id = m.ID });
+                    var result2 = uow.MemberRepository.GetNames(p => p.BarcodeId.StartsWith(term)).Select(m => new { label = string.Concat(m.BarcodeId, " : ", m.FName, " : ", m.LName), id = m.ID });
                     //var result2 = uow.MemberRepository.GetNames(p => p.FamilyId.StartsWith(term)).Select(m => new { label = m.FamilyId, id = m.ID });
                     return Json(result2, JsonRequestBehavior.AllowGet);
                 default:
-                    var result3 = uow.MemberRepository.GetNames(p => p.FName.StartsWith(term)).Select(m => new { label = m.FName, id = m.ID });
+                    var result3 = uow.MemberRepository.GetNames(p => p.FName.StartsWith(term)).Select(m => new { label = string.Concat(m.BarcodeId, " : ", m.FName, " : ", m.LName), id = m.ID });
                     return Json(result3, JsonRequestBehavior.AllowGet);
             }
 
@@ -348,6 +359,8 @@ namespace AdminGujaratiSamaj.Controllers
             {
                 memberDetailMaster = memberDetail.First();
                 memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
+                ViewData["DID"] = memberDetailMaster.ID;
+
                 return View(memberDetailMaster);
             }
 

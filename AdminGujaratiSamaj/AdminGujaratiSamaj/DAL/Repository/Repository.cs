@@ -71,9 +71,8 @@ namespace AdminGujaratiSamaj.DAL.Repository
 
         public void Update(TEntity entityToUpdate)
         {
-            context.Entry(entityToUpdate).State = EntityState.Detached;
-            context.Entry(entityToUpdate).State = EntityState.Modified;
             dbSet.Attach(entityToUpdate);
+            context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
         public void Delete(TEntity entityToDelete)

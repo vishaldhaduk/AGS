@@ -377,9 +377,6 @@ namespace AdminGujaratiSamaj.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Get ID first and then update.
-                IEnumerable<MemberDetailMaster> MembersDetails = uow.MemberDetailRepository.GetMemberDetail(memberDetailMaster.MemberID);
-                memberDetailMaster.ID = MembersDetails.First().ID;
 
                 uow.MemberDetailRepository.Update(memberDetailMaster);
                 uow.Save();

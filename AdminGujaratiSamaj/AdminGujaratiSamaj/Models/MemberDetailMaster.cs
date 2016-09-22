@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace AdminGujaratiSamaj.Models
 {
     public class MemberDetailMaster
     {
+        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
         [ForeignKey("MemberMaster")]
         public int MemberID { get; set; }
@@ -17,7 +19,7 @@ namespace AdminGujaratiSamaj.Models
         public string Email { get; set; }
         public string THome { get; set; }
         public string TBusiness { get; set; }
-        public string TFax{ get; set; }
+        public string TFax { get; set; }
         public bool NewsLetter { get; set; }
         public virtual MemberMaster MemberMaster { get; set; }
         public string MemberType { get; set; }

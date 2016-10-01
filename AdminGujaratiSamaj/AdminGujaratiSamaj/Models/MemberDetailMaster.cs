@@ -9,7 +9,7 @@ namespace AdminGujaratiSamaj.Models
 {
     public class MemberDetailMaster
     {
-        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[Required, Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
         [ForeignKey("MemberMaster")]
         public int MemberID { get; set; }

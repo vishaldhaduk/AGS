@@ -179,19 +179,27 @@ namespace AdminGujaratiSamaj.Controllers
             IEnumerable<MemberDetailMaster> memberDetail = uow.MemberDetailRepository.GetMemberDetail(id);
             MemberDetailMaster memberDetailMaster = new MemberDetailMaster();
 
+            IEnumerable<MemberAccountMaster> memberAccountDetail = uow.MemberAccountRepository.GetMemberAccountDetail(id);
+            MemberAccountMaster memberAccountMaster = new MemberAccountMaster();
             if (memberDetail.Count() > 0)
             {
+                if (memberAccountDetail.Count() > 0)
+                {
+                    memberAccountMaster = memberAccountDetail.Where(p => p.MemberID == id).First();
+                }
+                //.............
+
                 memberDetailMaster = memberDetail.First();
                 memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
-                var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster>
-                    (memberMaster, member, memberDetailMaster);
+                var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster, MemberAccountMaster>
+                    (memberMaster, member, memberDetailMaster, memberAccountMaster);
                 return View(tuple);
             }
             else
             {
                 //memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
-                var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster>
-                    (memberMaster, member, memberDetailMaster);
+                var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster, MemberAccountMaster>
+                    (memberMaster, member, memberDetailMaster, memberAccountMaster);
                 return View(tuple);
             }
 
@@ -313,6 +321,7 @@ namespace AdminGujaratiSamaj.Controllers
             base.Dispose(disposing);
         }
 
+        #region MemberDetail
         // GET: Member/Create
         public ActionResult AddDetails(int? id)
         {
@@ -327,14 +336,14 @@ namespace AdminGujaratiSamaj.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddDetails([Bind(Include = "ID,MemberID,Address,DOB,Sex,Email,THome,TBusiness,TFax,NewsLetter,MemberType")] MemberDetailMaster memberDetailMaster)
+        public ActionResult AddDetails([Bind(Include = "MemberID,Address,DOB,Sex,Email,THome,TBusiness,TFax,NewsLetter,MemberType")] MemberDetailMaster memberDetailMaster)
         {
             if (ModelState.IsValid)
             {
-                IEnumerable<MemberDetailMaster> MembersDetails = uow.MemberDetailRepository.GetAll();
-                int max = MembersDetails.Max(i => i.ID);
-                int newid = max + 1;
-                //memberMaster.ID = max + 1;
+                //IEnumerable<MemberDetailMaster> MembersDetails = uow.MemberDetailRepository.GetAll();
+                //int max = MembersDetails.Max(i => i.ID);
+                //int newid = max + 1;
+                //memberDetailMaster.ID = max + 1;
                 uow.MemberDetailRepository.Add(memberDetailMaster);
                 uow.Save();
                 return RedirectToAction("Details", new { id = memberDetailMaster.MemberID });
@@ -360,7 +369,6 @@ namespace AdminGujaratiSamaj.Controllers
                 memberDetailMaster = memberDetail.First();
                 memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
                 ViewData["DID"] = memberDetailMaster.ID;
-
                 return View(memberDetailMaster);
             }
 
@@ -377,7 +385,6 @@ namespace AdminGujaratiSamaj.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 uow.MemberDetailRepository.Update(memberDetailMaster);
                 uow.Save();
                 return RedirectToAction("Details", new { id = memberDetailMaster.MemberID });
@@ -385,5 +392,78 @@ namespace AdminGujaratiSamaj.Controllers
             }
             return View(memberDetailMaster);
         }
+        #endregion
+
+        #region MemberAccountDetail
+        // GET: Member/Create
+        public ActionResult AddAccountDetails(int? id)
+        {
+            if (id != null)
+                ViewData["MAID"] = id;
+
+            return View();
+        }
+
+        // POST: Member/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddAccountDetails([Bind(Include = "MemberID,Paid,Amount,DepositDate,PaymentType,Comment")] MemberAccountMaster memberAccount)
+        {
+            if (ModelState.IsValid)
+            {
+                //IEnumerable<MemberAccountMaster> MembersAccount = uow.MemberAccountRepository.GetAll();
+                //int max = MembersAccount.Max(i => i.ID);
+                //int newid = max + 1;
+                //memberMaster.ID = max + 1;
+                uow.MemberAccountRepository.Add(memberAccount);
+                uow.Save();
+                return RedirectToAction("Details", new { id = memberAccount.MemberID });
+                //return RedirectToAction("Details", new { id = newid });
+            }
+            return View(memberAccount);
+        }
+
+        public ActionResult EditAccountDetails(int? id)
+        {
+            if (id != null)
+                ViewData["EMAID"] = id;
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IEnumerable<MemberAccountMaster> memberAccountDetail = uow.MemberAccountRepository.GetMemberAccountDetail(id);
+            MemberAccountMaster memberAccountMaster;
+            if (memberAccountDetail.Count() > 0)
+            {
+                memberAccountMaster = memberAccountDetail.First();
+                memberAccountMaster = memberAccountDetail.Where(p => p.MemberID == id).First();
+                ViewData["DAID"] = memberAccountMaster.ID;
+                return View(memberAccountMaster);
+            }
+
+            if (memberAccountDetail == null)
+            {
+                return HttpNotFound();
+            }
+            return View("~/Views/Member/AddDetails.cshtml");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAccountDetails([Bind(Include = "ID,MemberID,Paid,Amount,DepositDate,PaymentType,Comment")] MemberAccountMaster memberAccountMaster)
+        {
+            if (ModelState.IsValid)
+            {
+                uow.MemberAccountRepository.Update(memberAccountMaster);
+                uow.Save();
+                return RedirectToAction("Details", new { id = memberAccountMaster.MemberID });
+                //return RedirectToAction("Details", new { id = newid });
+            }
+            return View(memberAccountMaster);
+        }
+        #endregion
     }
 }

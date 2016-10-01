@@ -13,6 +13,7 @@ namespace AdminGujaratiSamaj.DAL
         private MemberDetailRepository memberDetailRepository;
         private NonMemberEntryRepository nonMemberEntryRepository;
         private EntryRepository entryRepository;
+        private MemberAccountRepository memberAccountRepository;
 
         #region Repo
 
@@ -61,6 +62,18 @@ namespace AdminGujaratiSamaj.DAL
                     this.entryRepository = new EntryRepository(context);
                 }
                 return entryRepository;
+            }
+        }
+
+        public MemberAccountRepository MemberAccountRepository
+        {
+            get
+            {
+                if (this.memberAccountRepository == null)
+                {
+                    this.memberAccountRepository = new MemberAccountRepository(context);
+                }
+                return memberAccountRepository;
             }
         }
         #endregion

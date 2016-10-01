@@ -1,5 +1,5 @@
 ﻿@using AdminGujaratiSamaj.Models;
-@model Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster>
+@model Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster, MemberAccountMaster>
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -42,7 +42,46 @@
     </dl>
 </div>
 
+@*Member Account detail*@
+<div class="col-lg-6">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item4.MemberID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item4.MemberID)
+        </dd>
 
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item4.Paid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item4.Paid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item4.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item4.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item4.PaymentType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item4.PaymentType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item4.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item4.Comment)
+        </dd>
+    </dl>
+</div>
 
 @*Member details*@
 <div class="col-lg-6">
@@ -174,7 +213,9 @@
                 @Html.ActionLink("Add Details", "AddDetails", new { id = item.ID }) |
                 @Html.ActionLink("Edit Details", "EditDetails", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
+                @Html.ActionLink("Add Account", "AddAccountDetails", new { id = item.ID }) |
+                @Html.ActionLink("Edit Account", "EditAccountDetails", new { id = item.ID }) 
             </td>
         </tr>
     }

@@ -190,6 +190,7 @@
     <Compile Include="DAL\AGSDBContext.cs" />
     <Compile Include="DAL\AGSDBInitializer.cs" />
     <Compile Include="DAL\Repository\EntryRepository.cs" />
+    <Compile Include="DAL\Repository\MemberAccountRepository.cs" />
     <Compile Include="DAL\Repository\MemberDetailRepository.cs" />
     <Compile Include="DAL\Repository\MemberRepository.cs" />
     <Compile Include="DAL\Repository\NonMemberEntryRepository.cs" />
@@ -308,6 +309,8 @@
     <Content Include="Views\Entry\Index.cshtml" />
     <Content Include="Views\Member\AddDetails.cshtml" />
     <Content Include="Views\Member\EditDetails.cshtml" />
+    <Content Include="Views\Member\AddAccountDetails.cshtml" />
+    <Content Include="Views\Member\EditAccountDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

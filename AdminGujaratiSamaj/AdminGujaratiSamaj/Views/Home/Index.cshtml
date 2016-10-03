@@ -3,28 +3,11 @@
 }
 @model IEnumerable<AdminGujaratiSamaj.Models.MemberMaster>
 
-
-
 <div class="jumbotron">
     <h2>Welcome GSM Admin</h2>
     <p class="lead" style="font-size:16px">"જય જય ગરવી ગુજરાત"</p>
     <div class="input-group">
-        @*action="/Member/Searchmembers"*@
-        @*<form action="/Member/Searchmembers" class="navbar-search" id="searchform" method="get">
-                <input type="text" id="pid" name="pid" value="@ViewBag.id" style="visibility : hidden" readonly>
-                <input type="text" class="form-control" id="fName" name="fName" value="@ViewBag.fName" placeholder="Search member by fName">
-                <input class="btn btn-success pull-right" id="btnClick" value="Search" type="submit" />
-            </form>*@
     </div>
-
-    @*@using (Html.BeginForm())
-        {
-         <p>
-             Find by name: @Html.TextBox("SearchString")
-             <input type="submit" value="Search" />
-         </p>
-        }*@
-
 </div>
 <div id="Content" class="row">@{Html.RenderAction("Index", "Member");}</div>
 
@@ -40,29 +23,9 @@
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13 && $(this).val() != "") {
             $('#searchform').submit();
-            console.log("Keypress function executed...");
+            console.log("Home:Keypress function executed...");
         }
     });
-
-    @*$('#btnClick').click(function (data) {
-         $.post("@Url.Action("Members/Searchmembers?fname=pa", "Member")", function (data) {
-             console.log("Trying to execute btnClick CLick function...");
-             if (data) {
-                 $("#fName").append(data);
-                 console.log("after appendig the fName...");
-             }
-         });
-      //  var value = $('#fName').text();
-      //alert(value);
-    });*@
-
-    @*$.post("@Url.Action("searchmembers?fname=pa", "Member")", function (data) {
-        console.log("Trying to execute btnClick CLick function...");
-        if (data) {
-            $("#fName").append(data);
-            console.log("after appendig the fName...");
-        }
-    });*@
 
     $("#fName").autocomplete({
         source: "/Home/SearchMemberAutoComplete",
@@ -76,4 +39,25 @@
             $("#fName").val(ui.item.label);
         }
     })
+
+    @*$('#btnClick').click(function (data) {
+           $.post("@Url.Action("Members/Searchmembers?fname=pa", "Member")", function (data) {
+               console.log("Trying to execute btnClick CLick function...");
+               if (data) {
+                   $("#fName").append(data);
+                   console.log("after appendig the fName...");
+               }
+           });
+           //  var value = $('#fName').text();
+           //alert(value);
+       });*@
+
+    @*$.post("@Url.Action("searchmembers?fname=pa", "Member")", function (data) {
+           console.log("Trying to execute btnClick CLick function...");
+           if (data) {
+               $("#fName").append(data);
+               console.log("after appendig the fName...");
+           }
+       });*@
+
 </script>

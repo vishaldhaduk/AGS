@@ -14,78 +14,78 @@
 </p>
 
 @*@using (Html.BeginForm("Index", "Member", FormMethod.Post))
-{}*@
-    <div style="text-orientation:sideways; margin-bottom:25px; margin-top:20px" class="col-lg-10">
-        @*Find by name:*@
-        @* <label>Search Criteria: </label>*@
-        <div class="dropdown" style="float:left; height:34px">
-            <select id="searchBy" class="dropdown" style="height:34px" name="searchBy">
-                <option value="0">First Name</option>
-                <option value="1">Last Name</option>
-                <option value="2">Barcode Id</option>
-                <option value="3">Family Id</option>
-            </select>
-        </div>
-        <form action="/Member/Index" class="navbar-search" id="searchform" method="post">
-            <div style="float:left; ">
-                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
-                     new { @id = "txtSearch", @class = "form-control SearchText" })
-            </div>
-            <input type="submit" style="float:left" id="btnSearch" value="Search Members" class="btn btn-success" />
-            <input type="text" id="memberId" name="memberId" value="@ViewBag.id" style="visibility : hidden; float:left" readonly>
-        </form>
+    {}*@
+<div style="text-orientation:sideways; margin-bottom:25px; margin-top:20px" class="col-lg-10">
+    @*Find by name:*@
+    @* <label>Search Criteria: </label>*@
+    <div class="dropdown" style="float:left; height:34px">
+        <select id="searchBy" class="dropdown" style="height:34px" name="searchBy">
+            <option value="0">First Name</option>
+            <option value="1">Last Name</option>
+            <option value="2">Barcode Id</option>
+            <option value="3">Family Id</option>
+        </select>
     </div>
+    <form action="/Member/Index" class="navbar-search" id="searchform" method="post">
+        <div style="float:left; ">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
+                     new { @id = "txtSearch", @class = "form-control SearchText" })
+        </div>
+        <input type="submit" style="float:left" id="btnSearch" value="Search Members" class="btn btn-success" />
+        <input type="text" id="memberId" name="memberId" value="@ViewBag.id" style="visibility : hidden; float:left" readonly>
+    </form>
+</div>
 @*}*@
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.BarcodeId)
-        </th>
-        <th>
-            @Html.ActionLink("Title", "Index")
-        </th>
-        <th>
-            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FNameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LNameSortParm })
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsPrimary)
-        </th>
-        <th>
-            @Html.ActionLink("Family Id", "Index", new { sortOrder = ViewBag.FIDSortParm })
-        </th>
-        <th></th>
-    </tr>
+</th>
+<th>
+    @Html.ActionLink("Title", "Index")
+</th>
+<th>
+    @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FNameSortParm })
+</th>
+<th>
+    @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LNameSortParm })
+</th>
+<th>
+    @Html.DisplayNameFor(model => model.IsPrimary)
+</th>
+<th>
+    @Html.ActionLink("Family Id", "Index", new { sortOrder = ViewBag.FIDSortParm })
+</th>
+<th></th>
+</tr>
 
-    @foreach (var item in Model)
+@foreach (var item in Model)
     {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.BarcodeId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsPrimary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FamilyId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-        </td>
-    </tr>
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.Title)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.FName)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.LName)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.IsPrimary)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.FamilyId)
+</td>
+<td>
+    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+@Html.ActionLink("Details", "Details", new { id = item.ID }) |
+@Html.ActionLink("Delete", "Delete", new { id = item.ID })
+</td>
+</tr>
     }
 
 </table>
@@ -103,6 +103,10 @@ Page @(pagedlist.PageCount < pagedlist.PageNumber ? 0 : pagedlist.PageNumber) of
 
 <script type="text/javascript">
     $(document).ready(function () {
+        var value = getCookie("search_criteria");
+        console.log(value);
+        $("#searchBy").val(value!=null?value:'0');
+
         $(".nav-collapse .nav li a").click(function (e) {
             $(".nav-collapse .nav .active").removeClass("active")
             $(this).parent().addClass("active")
@@ -112,14 +116,18 @@ Page @(pagedlist.PageCount < pagedlist.PageNumber ? 0 : pagedlist.PageNumber) of
         $("#searchBy").change(function () {
             if ($("#searchBy").val() != "Select") {
                 setCookie("search_criteria", $("#searchBy").val());
-                //console.log(getCookie("search_criteria"));
+                console.log(getCookie("search_criteria"));
             }
         });
 
         function setCookie(key, value) {
             var expires = new Date();
             expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
-            document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+            if (document.domain === 'localhost') {
+                document.cookie = encodeURI(key) + '=' + encodeURI(value) + ';path=/;';
+            }else{
+                document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+            }
         }
 
         function getCookie(key) {

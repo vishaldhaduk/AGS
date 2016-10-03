@@ -18,21 +18,23 @@ namespace AdminGujaratiSamaj.Controllers
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: Member
-        public ActionResult Index(int? page, string sortOrder, string currentFilter, string searchString, string searchBy, string MemberId)
+        public ActionResult Index(int? page, string sortOrder, string currentFilter,
+                    string searchString, string searchBy, string MemberId)
         {
             ViewBag.LNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lname_desc" : "";
             ViewBag.FNameSortParm = String.IsNullOrEmpty(sortOrder) ? "fname_asc" : "";
             ViewBag.FIDSortParm = String.IsNullOrEmpty(sortOrder) ? "family_id" : "";
 
             if (searchString != null)
-            {
                 page = 1;
-            }
             else
-            {
                 searchString = currentFilter;
-            }
 
+            if (MemberId != null)
+            {
+               int mId =  GetSearchMembers(searchString, MemberId);
+               return RedirectToAction("Details", new { id = mId });
+            }
             IEnumerable<MemberMaster> Members = SearhMembers(searchString, searchBy);
 
             switch (sortOrder)
@@ -69,7 +71,6 @@ namespace AdminGujaratiSamaj.Controllers
                 if (!string.IsNullOrEmpty(searchString))
                     data = searchString.Split(new string[] { " : " }, StringSplitOptions.None);
 
-
                 switch (searchBy)
                 {
                     case "1":
@@ -103,6 +104,16 @@ namespace AdminGujaratiSamaj.Controllers
             return Members;
         }
 
+        public int GetSearchMembers(string searchString, string MemberId)
+        {
+            MemberMaster Members = new MemberMaster();
+
+            if (MemberId != null)
+                Members = uow.MemberRepository.GetByID(Convert.ToInt32(MemberId));
+
+            return Members.ID;
+        }
+
         public JsonResult UpdateSearchCriteria(string term)
         {
             return Json("", JsonRequestBehavior.AllowGet);
@@ -127,9 +138,6 @@ namespace AdminGujaratiSamaj.Controllers
                     var result3 = uow.MemberRepository.GetNames(p => p.FName.StartsWith(term)).Select(m => new { label = string.Concat(m.BarcodeId, " : ", m.FName, " : ", m.LName), id = m.ID });
                     return Json(result3, JsonRequestBehavior.AllowGet);
             }
-
-            //uow.MemberRepository.GetNames(p => p.FName.StartsWith(term)).Select(m => new { label = m.FName, id = m.ID });
-            //return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public string GetCookieValue(string key)

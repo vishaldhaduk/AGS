@@ -13,11 +13,10 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm("Index", "Member", FormMethod.Get))
-{
+@*@using (Html.BeginForm("Index", "Member", FormMethod.Post))
+{}*@
     <div style="text-orientation:sideways; margin-bottom:25px; margin-top:20px" class="col-lg-10">
         @*Find by name:*@
-
         @* <label>Search Criteria: </label>*@
         <div class="dropdown" style="float:left; height:34px">
             <select id="searchBy" class="dropdown" style="height:34px" name="searchBy">
@@ -27,14 +26,16 @@
                 <option value="3">Family Id</option>
             </select>
         </div>
-        <div style="float:left; ">
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
+        <form action="/Member/Index" class="navbar-search" id="searchform" method="post">
+            <div style="float:left; ">
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
                      new { @id = "txtSearch", @class = "form-control SearchText" })
-        </div>
-        <input type="submit" style="float:left" id="btnSearch" value="Search Members" class="btn btn-success" />
-        <input type="text" id="memberId" name="memberId" value="@ViewBag.id" style="visibility : hidden; float:left" readonly>
+            </div>
+            <input type="submit" style="float:left" id="btnSearch" value="Search Members" class="btn btn-success" />
+            <input type="text" id="memberId" name="memberId" value="@ViewBag.id" style="visibility : hidden; float:left" readonly>
+        </form>
     </div>
-}
+@*}*@
 <table class="table">
     <tr>
         <th>
@@ -60,31 +61,31 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BarcodeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPrimary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FamilyId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BarcodeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPrimary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FamilyId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+    </tr>
     }
 
 </table>
@@ -128,6 +129,7 @@ Page @(pagedlist.PageCount < pagedlist.PageNumber ? 0 : pagedlist.PageNumber) of
     });
 
     $("#txtSearch").keypress(function (e) {
+        console.debug("Key pressed start");
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13 && $(this).val() != "") {
             $("#searchBy :selected").text();
@@ -139,13 +141,12 @@ Page @(pagedlist.PageCount < pagedlist.PageNumber ? 0 : pagedlist.PageNumber) of
     $("#txtSearch").autocomplete({
         source: "/Member/SearchMemberAutoComplete?searchBy=" + $('select[name=searchBy]').val(),
         select: function (event, ui) {
-            //event.defaultPrevented();
             $("#txtSearch").val(ui.item.label);
             $("#memberId").val(ui.item.id);
-            $("#searchBy :selected").text();
-            $('#btnSearch').submit();
+            $("#searchBy:selected").text();
+            $('#searchform').submit();
+            console.log("Auto complete executed...");
         },
-
         focus: function (event, ui) {
             $("#txtSearch").val(ui.item.label);
         }

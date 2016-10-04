@@ -150,11 +150,15 @@
         <dd>
             @Html.DisplayFor(tuple => tuple.Item3.NewsLetter)
         </dd>
-
     </dl>
 </div>
 
-<hr />
+<div class="col-lg-6">
+    <dl class="dl-horizontal" style="text-orientation:sideways-right">
+        @Html.ActionLink("Add Account", "AddAccountDetails", new { id = ViewBag.FamilyId })
+        @Html.ActionLink("Add Details", "AddDetails", new { id = ViewBag.FamilyId }) |
+    </dl>
+</div>
 <hr />
 <br />
 
@@ -162,37 +166,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Family Id", "Index", new { sortOrder = ViewBag.FIDSortParm })
-        </th>
-        <th>
             @Html.DisplayNameFor(model => Model.Item1.BarcodeId)
         </th>
         <th>
             @Html.ActionLink("Title", "Index")
         </th>
         <th>
-            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FNameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LNameSortParm })
+            @Html.ActionLink("Full Name", "Index", new { sortOrder = ViewBag.FNameSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => Model.Item1.IsPrimary)
         </th>
-
         <th>
-            @Html.ActionLink("Add New Member", "Create", new { id=ViewBag.FamilyId })
+            @Html.ActionLink("Add New Member", "Create", new { id = ViewBag.FamilyId })
         </th>
-
-        <th></th>
     </tr>
 
     @foreach (var item in Model.Item2)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(model => item.FamilyId)
-            </td>
             <td>
                 @Html.DisplayFor(model => item.BarcodeId)
             </td>
@@ -200,26 +192,20 @@
                 @Html.DisplayFor(model => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(model => item.FName)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.LName)
+                @Html.DisplayFor(model => item.FullName)
             </td>
             <td>
                 @Html.DisplayFor(model => item.IsPrimary)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Add Details", "AddDetails", new { id = item.ID }) |
                 @Html.ActionLink("Edit Details", "EditDetails", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
-                @Html.ActionLink("Add Account", "AddAccountDetails", new { id = item.ID }) |
-                @Html.ActionLink("Edit Account", "EditAccountDetails", new { id = item.ID }) 
+                @Html.ActionLink("Edit Account", "EditAccountDetails", new { id = item.ID })
             </td>
         </tr>
     }
-
 </table>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.ID }) |

@@ -32,8 +32,8 @@ namespace AdminGujaratiSamaj.Controllers
 
             if (MemberId != null)
             {
-               int mId =  GetSearchMembers(searchString, MemberId);
-               return RedirectToAction("Details", new { id = mId });
+                int mId = GetSearchMembers(searchString, MemberId);
+                return RedirectToAction("Details", new { id = mId });
             }
             IEnumerable<MemberMaster> Members = SearhMembers(searchString, searchBy);
 
@@ -409,7 +409,17 @@ namespace AdminGujaratiSamaj.Controllers
             if (id != null)
                 ViewData["MAID"] = id;
 
-            return View();
+            MemberAccountMaster memberAccount = new MemberAccountMaster();
+            memberAccount.Paid = true;
+
+            MemberMaster memberMaster = uow.MemberRepository.GetByID(id);
+
+            IEnumerable<MemberMaster> member = uow.MemberRepository.GetMemberByFamilyId(memberMaster.FamilyId);
+
+            var tuple = new Tuple<MemberAccountMaster, IEnumerable<MemberMaster>>
+             (memberAccount, member);
+
+            return View(tuple);
         }
 
         // POST: Member/Create
@@ -417,18 +427,30 @@ namespace AdminGujaratiSamaj.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddAccountDetails([Bind(Include = "MemberID,Paid,Amount,DepositDate,PaymentType,Comment")] MemberAccountMaster memberAccount)
+        public ActionResult AddAccountDetails(FormCollection collection)
         {
+            MemberAccountMaster memberAccount = new MemberAccountMaster();
             if (ModelState.IsValid)
             {
-                //IEnumerable<MemberAccountMaster> MembersAccount = uow.MemberAccountRepository.GetAll();
-                //int max = MembersAccount.Max(i => i.ID);
-                //int newid = max + 1;
-                //memberMaster.ID = max + 1;
-                uow.MemberAccountRepository.Add(memberAccount);
-                uow.Save();
+                string ids = collection["SelectedGroups"];
+                string[] memberIds = ids.Split(',');
+                float AmountPerPerson = Convert.ToInt32(collection["Item1.Amount"]) / memberIds.Count();
+
+                memberAccount.Paid = true;
+                //memberAccount.Paid = Convert.ToBoolean(collection["Item1.Paid"].Substring(0,4));
+                memberAccount.Amount = AmountPerPerson.ToString();
+                memberAccount.DepositDate = collection["Item1.DepositDate"];
+                memberAccount.PaymentType = collection["Item1.PaymentType"];
+                memberAccount.Comment = collection["Item1.Comment"];
+
+                for (int i = 0; i < memberIds.Count(); i++)
+                {
+                    memberAccount.MemberID = Convert.ToInt32(memberIds[i]);
+                    uow.MemberAccountRepository.Add(memberAccount);
+                    uow.Save();
+                }
+
                 return RedirectToAction("Details", new { id = memberAccount.MemberID });
-                //return RedirectToAction("Details", new { id = newid });
             }
             return View(memberAccount);
         }

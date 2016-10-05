@@ -9,7 +9,8 @@ namespace AdminGujaratiSamaj.DAL.Repository
 {
     public class MemberDetailRepository : Repository<MemberDetailMaster>
     {
-        public MemberDetailRepository(AGSDBContext context) : base(context)
+        public MemberDetailRepository(AGSDBContext context)
+            : base(context)
         {
 
         }
@@ -19,11 +20,13 @@ namespace AdminGujaratiSamaj.DAL.Repository
             var m = context.MemberDetailMasters.Where(p => p.MemberID == id);
             return m;
         }
-
-        //internal MemberDetailMaster GetMemberDetail(int? id)
-        //{
-        //    //    MemberDetailMaster m = context.MemberDetailMasters.Where(p => p.MemberMasterID == id);
-        //    //    return m;
-        //}
+        internal MemberDetailMaster GetMembersDetail(int? id)
+        {
+            using (AGSDBContext context =new AGSDBContext())
+            {
+                MemberDetailMaster m = context.MemberDetailMasters.Where(p => p.MemberID == id).FirstOrDefault();
+                return m;
+            }
+        }
     }
 }

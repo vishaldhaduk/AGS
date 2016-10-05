@@ -19,5 +19,11 @@ namespace AdminGujaratiSamaj.DAL.Repository
             var m = context.MemberAccountMasters.Where(p => p.MemberID == id);
             return m;
         }
+
+        internal MemberAccountMaster GetMembersAccountDetail(int? id)
+        {
+            var m = context.MemberAccountMasters.Where(p => p.MemberID == id).FirstOrDefault();
+            return m;
+        }
     }
 }

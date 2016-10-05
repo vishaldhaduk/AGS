@@ -1,154 +1,141 @@
-﻿@using AdminGujaratiSamaj.Models;
-@model Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster, MemberAccountMaster>
+﻿@using AdminGujaratiSamaj.ViewModels;
+@model MemberInfoViewModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Member Details</h2>
 
 @*Member info*@
 <div class="col-lg-6">
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item1.FullName)
+            @Html.DisplayNameFor(model => model.FullName)
         </dt>
-
         <dd>
-            @Html.DisplayFor(tuple => tuple.Item1.FullName)
+            @Html.DisplayFor(model => model.FullName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item1.FamilyId)
+            @Html.DisplayNameFor(model => model.FamilyId)
         </dt>
         <dd>
-            @Html.DisplayFor(tuple => tuple.Item1.FamilyId)
+            @Html.DisplayFor(model => model.FamilyId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item1.BarcodeId)
+            @Html.DisplayNameFor(model => model.BarcodeId)
         </dt>
-
         <dd>
-            @Html.DisplayFor(tuple => tuple.Item1.BarcodeId)
+            @Html.DisplayFor(model => model.BarcodeId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item1.IsPrimary)
+            @Html.DisplayNameFor(model => model.IsPrimary)
         </dt>
         <dd>
-            @Html.DisplayFor(tuple => tuple.Item1.IsPrimary)
+            @Html.DisplayFor(model => model.IsPrimary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MemberID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MemberType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.THome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.THome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TBusiness)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TBusiness)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TFax)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TFax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsLetter)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsLetter)
         </dd>
     </dl>
 </div>
-
-@*Member Account detail*@
-<div class="col-lg-6">
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item4.MemberID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item4.MemberID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item4.Paid)
-        </dt>
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item4.Paid)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item4.Amount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item4.Amount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item4.PaymentType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item4.PaymentType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item4.Comment)
-        </dt>
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item4.Comment)
-        </dd>
-    </dl>
-</div>
-
-@*Member details*@
 <div class="col-lg-6">
     <dl class="dl-horizontal" style="text-orientation:sideways-right">
         <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item3.Address)
+            @Html.DisplayNameFor(model => model.Paid)
         </dt>
-
         <dd>
-            @Html.DisplayFor(tuple => tuple.Item3.Address)
+            @Html.DisplayFor(model => model.Paid)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item3.DOB)
+            @Html.DisplayNameFor(model => model.Amount)
         </dt>
         <dd>
-            @Html.DisplayFor(tuple => tuple.Item3.DOB)
+            @Html.DisplayFor(model => model.Amount)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item3.Sex)
+            @Html.DisplayNameFor(model => model.PaymentType)
         </dt>
-
         <dd>
-            @Html.DisplayFor(tuple => tuple.Item3.Sex)
+            @Html.DisplayFor(model => model.PaymentType)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item3.Email)
+            @Html.DisplayNameFor(model => model.Comment)
         </dt>
         <dd>
-            @Html.DisplayFor(tuple => tuple.Item3.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item3.MemberType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item3.MemberType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item3.THome)
-        </dt>
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item3.THome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item3.TBusiness)
-        </dt>
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item3.TBusiness)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item3.TFax)
-        </dt>
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item3.TFax)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item3.NewsLetter)
-        </dt>
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item3.NewsLetter)
+            @Html.DisplayFor(model => model.Comment)
         </dd>
     </dl>
 </div>
@@ -166,30 +153,33 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => Model.Item1.BarcodeId)
+            @Html.DisplayNameFor(model => model.BarcodeId)
         </th>
         <th>
-            @Html.ActionLink("Title", "Index")
+            @Html.DisplayNameFor(model => model.FullName)
         </th>
         <th>
-            @Html.ActionLink("Full Name", "Index", new { sortOrder = ViewBag.FNameSortParm })
+            @Html.DisplayNameFor(model => model.IsPrimary)
         </th>
         <th>
-            @Html.DisplayNameFor(model => Model.Item1.IsPrimary)
+            @Html.DisplayNameFor(model => model.MemberType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
         </th>
         <th>
             @Html.ActionLink("Add New Member", "Create", new { id = ViewBag.FamilyId })
         </th>
     </tr>
 
-    @foreach (var item in Model.Item2)
+    @foreach (var item in Model.Members)
     {
         <tr>
             <td>
                 @Html.DisplayFor(model => item.BarcodeId)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Title)
             </td>
             <td>
                 @Html.DisplayFor(model => item.FullName)
@@ -198,16 +188,25 @@
                 @Html.DisplayFor(model => item.IsPrimary)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Edit Details", "EditDetails", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
-                @Html.ActionLink("Edit Account", "EditAccountDetails", new { id = item.ID })
+                @Html.DisplayFor(model => item.MemberType)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Paid)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Amount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MemberID }) |
+                @Html.ActionLink("Edit Details", "EditDetails", new { id = item.MemberID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MemberID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MemberID }) |
+                @Html.ActionLink("Edit Account", "EditAccountDetails", new { id = item.MemberID })
             </td>
         </tr>
     }
 </table>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MemberID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -10,6 +10,7 @@ using AdminGujaratiSamaj.Models;
 using PagedList;
 using System.Linq;
 using System.Linq.Expressions;
+using AdminGujaratiSamaj.ViewModels;
 
 namespace AdminGujaratiSamaj.Controllers
 {
@@ -172,12 +173,19 @@ namespace AdminGujaratiSamaj.Controllers
                 return View();
         }
 
+        #region Details
+
         // GET: Member/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (true)
+            {
+                MemberInfoViewModel m = GetFullMemberInfo(id);
+                return View(m);
             }
 
             MemberMaster memberMaster = uow.MemberRepository.GetByID(id);
@@ -189,6 +197,7 @@ namespace AdminGujaratiSamaj.Controllers
 
             IEnumerable<MemberAccountMaster> memberAccountDetail = uow.MemberAccountRepository.GetMemberAccountDetail(id);
             MemberAccountMaster memberAccountMaster = new MemberAccountMaster();
+
             if (memberDetail.Count() > 0)
             {
                 if (memberAccountDetail.Count() > 0)
@@ -219,6 +228,83 @@ namespace AdminGujaratiSamaj.Controllers
             return View("~/Views/Member/AddDetails.cshtml");
         }
 
+        private MemberInfoViewModel GetFullMemberInfo(int? id)
+        {
+            MemberInfoViewModel m = new MemberInfoViewModel();
+
+            //Member info
+            MemberMaster memberMaster = uow.MemberRepository.GetByID(id);
+
+            //All family members
+            ViewBag.FamilyId = memberMaster.FamilyId;
+            //m.Members = uow.MemberRepository.GetMemberByFamilyId(memberMaster.FamilyId);
+
+            m.Members = GetAllMemberInfo(memberMaster.FamilyId);
+
+            //Member Details
+            IEnumerable<MemberDetailMaster> memberDetail = uow.MemberDetailRepository.GetMemberDetail(id);
+            MemberDetailMaster memberDetailMaster = new MemberDetailMaster();
+            memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
+
+            //Member Account Details
+            IEnumerable<MemberAccountMaster> memberAccountDetail = uow.MemberAccountRepository.GetMemberAccountDetail(id);
+            MemberAccountMaster memberAccountMaster = new MemberAccountMaster();
+            memberAccountMaster = memberAccountDetail.Where(p => p.MemberID == id).First();
+
+            m.MemberID = memberMaster.ID;
+            m.Title = memberMaster.Title;
+            m.FName = memberMaster.FName;
+            m.LName = memberMaster.LName;
+            m.BarcodeId = memberMaster.BarcodeId;
+            m.IsPrimary = memberMaster.IsPrimary;
+            m.FamilyId = memberMaster.FamilyId;
+
+            m.Address = memberDetailMaster.Address;
+            m.DOB = memberDetailMaster.DOB;
+            m.Sex = memberDetailMaster.Sex;
+            m.Email = memberDetailMaster.Email;
+            m.THome = memberDetailMaster.THome;
+            m.TBusiness = memberDetailMaster.TBusiness;
+            m.TFax = memberDetailMaster.TFax;
+            m.NewsLetter = memberDetailMaster.NewsLetter;
+            m.MemberType = memberDetailMaster.MemberType;
+
+
+            m.Paid = memberAccountMaster.Paid;
+            m.Amount = memberAccountMaster.Amount;
+            m.DepositDate = memberAccountMaster.DepositDate;
+            m.PaymentType = memberAccountMaster.PaymentType;
+            m.Comment = memberAccountMaster.Comment;
+
+            return m;
+        }
+
+        private IEnumerable<MemberViewModel> GetAllMemberInfo(int familyId)
+        {
+            List<MemberViewModel> mlist = new List<MemberViewModel>();
+
+            IEnumerable<MemberMaster> member = uow.MemberRepository.GetMemberByFamilyId(familyId);
+
+            foreach (var item in member)
+            {
+                MemberViewModel m = new MemberViewModel();
+                m.BarcodeId = item.BarcodeId;
+                m.Title = item.Title;
+                m.FName = item.FName;
+                m.LName = item.LName;
+                m.IsPrimary = item.IsPrimary;
+                m.MemberID = item.ID;
+                m.FamilyId = item.FamilyId;
+                m.Amount = uow.MemberAccountRepository.GetMemberAccountDetail(item.ID).First().Amount;
+                m.Paid = uow.MemberAccountRepository.GetMemberAccountDetail(item.ID).First().Paid;
+                m.MemberType = uow.MemberDetailRepository.GetMembersDetail(item.ID).MemberType;
+
+                mlist.Add(m);
+            }
+
+            return mlist.AsEnumerable<MemberViewModel>();
+        }
+        #endregion
         // GET: Member/Create
         public ActionResult Create(int? id)
         {

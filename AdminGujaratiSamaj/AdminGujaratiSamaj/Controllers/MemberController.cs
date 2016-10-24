@@ -185,44 +185,49 @@ namespace AdminGujaratiSamaj.Controllers
             if (true)
             {
                 MemberInfoViewModel m = GetFullMemberInfo(id);
+                ViewBag.MemberId = m.MemberID;
+
                 return View(m);
-            }
-
-            MemberMaster memberMaster = uow.MemberRepository.GetByID(id);
-            ViewBag.FamilyId = memberMaster.FamilyId;
-            IEnumerable<MemberMaster> member = uow.MemberRepository.GetMemberByFamilyId(memberMaster.FamilyId);
-
-            IEnumerable<MemberDetailMaster> memberDetail = uow.MemberDetailRepository.GetMemberDetail(id);
-            MemberDetailMaster memberDetailMaster = new MemberDetailMaster();
-
-            IEnumerable<MemberAccountMaster> memberAccountDetail = uow.MemberAccountRepository.GetMemberAccountDetail(id);
-            MemberAccountMaster memberAccountMaster = new MemberAccountMaster();
-
-            if (memberDetail.Count() > 0)
-            {
-                if (memberAccountDetail.Count() > 0)
-                {
-                    memberAccountMaster = memberAccountDetail.Where(p => p.MemberID == id).First();
-                }
-                //.............
-
-                memberDetailMaster = memberDetail.First();
-                memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
-                var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster, MemberAccountMaster>
-                    (memberMaster, member, memberDetailMaster, memberAccountMaster);
-                return View(tuple);
             }
             else
             {
-                //memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
-                var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster, MemberAccountMaster>
-                    (memberMaster, member, memberDetailMaster, memberAccountMaster);
-                return View(tuple);
-            }
 
-            if (memberMaster == null)
-            {
-                return HttpNotFound();
+                MemberMaster memberMaster = uow.MemberRepository.GetByID(id);
+                ViewBag.FamilyId = memberMaster.FamilyId;
+                IEnumerable<MemberMaster> member = uow.MemberRepository.GetMemberByFamilyId(memberMaster.FamilyId);
+
+                IEnumerable<MemberDetailMaster> memberDetail = uow.MemberDetailRepository.GetMemberDetail(id);
+                MemberDetailMaster memberDetailMaster = new MemberDetailMaster();
+
+                IEnumerable<MemberAccountMaster> memberAccountDetail = uow.MemberAccountRepository.GetMemberAccountDetail(id);
+                MemberAccountMaster memberAccountMaster = new MemberAccountMaster();
+
+                if (memberDetail.Count() > 0)
+                {
+                    if (memberAccountDetail.Count() > 0)
+                    {
+                        memberAccountMaster = memberAccountDetail.Where(p => p.MemberID == id).First();
+                    }
+                    //.............
+
+                    memberDetailMaster = memberDetail.First();
+                    memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
+                    var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster, MemberAccountMaster>
+                        (memberMaster, member, memberDetailMaster, memberAccountMaster);
+                    return View(tuple);
+                }
+                else
+                {
+                    //memberDetailMaster = memberDetail.Where(p => p.MemberID == id).First();
+                    var tuple = new Tuple<MemberMaster, IEnumerable<MemberMaster>, MemberDetailMaster, MemberAccountMaster>
+                        (memberMaster, member, memberDetailMaster, memberAccountMaster);
+                    return View(tuple);
+                }
+
+                if (memberMaster == null)
+                {
+                    return HttpNotFound();
+                }
             }
 
             return View("~/Views/Member/AddDetails.cshtml");
@@ -305,6 +310,7 @@ namespace AdminGujaratiSamaj.Controllers
             return mlist.AsEnumerable<MemberViewModel>();
         }
         #endregion
+
         // GET: Member/Create
         public ActionResult Create(int? id)
         {

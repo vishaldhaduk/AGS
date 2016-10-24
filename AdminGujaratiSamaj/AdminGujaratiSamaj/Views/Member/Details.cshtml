@@ -108,6 +108,7 @@
         </dd>
     </dl>
 </div>
+
 <div class="col-lg-6">
     <dl class="dl-horizontal" style="text-orientation:sideways-right">
         <dt>
@@ -142,8 +143,8 @@
 
 <div class="col-lg-6">
     <dl class="dl-horizontal" style="text-orientation:sideways-right">
-        @Html.ActionLink("Add Account", "AddAccountDetails", new { id = ViewBag.FamilyId })
-        @Html.ActionLink("Add Details", "AddDetails", new { id = ViewBag.FamilyId }) |
+        @Html.ActionLink("Add Account", "AddAccountDetails", new { id = ViewBag.MemberId})
+        @Html.ActionLink("Add Details", "AddDetails", new { id = ViewBag.MemberId }) |
     </dl>
 </div>
 <hr />
@@ -201,6 +202,7 @@
                 @Html.ActionLink("Edit Details", "EditDetails", new { id = item.MemberID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.MemberID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.MemberID }) |
+                @*@Html.ActionLink("Add Account", "AddAccountDetails", new { id = item.MemberID }) |*@
                 @Html.ActionLink("Edit Account", "EditAccountDetails", new { id = item.MemberID })
             </td>
         </tr>
